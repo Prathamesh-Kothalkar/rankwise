@@ -24,25 +24,38 @@ export default function AdminPage() {
     }
   }
 
-  const handleUpload = () => {
-    if (!file) return
-
-    setUploading(true)
-
-    // Simulate upload process
-    setTimeout(() => {
-      setUploading(false)
-
-      // Check if file is Excel
-      if (file.name.endsWith(".xlsx") || file.name.endsWith(".xls") || file.name.endsWith(".csv")) {
-        setUploadStatus("success")
-        setUploadMessage("File uploaded successfully. Data has been processed.")
+  const handleUpload = async () => {
+    if (!file) return;
+  
+    setUploading(true);
+    setUploadStatus("idle");
+  
+    const formData = new FormData();
+    formData.append("file", file);
+  
+    try {
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+  
+      const result = await res.json();
+  
+      if (res.ok) {
+        setUploadStatus("success");
+        setUploadMessage(result.message);
+        console.log("Extracted Data:", result.data);
       } else {
-        setUploadStatus("error")
-        setUploadMessage("Invalid file format. Please upload an Excel or CSV file.")
+        throw new Error(result.error || "Upload failed");
       }
-    }, 2000)
-  }
+    } catch (error) {
+      setUploadStatus("error");
+      setUploadMessage((error as Error).message);
+    } finally {
+      setUploading(false);
+    }
+  };
+  
 
   return (
     <div className="container flex min-h-screen flex-col py-8">
