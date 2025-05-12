@@ -43,7 +43,7 @@
 
 ### 1. Clone the Repository
 
-- ```git clone https://github.com/your-username/rankwise.git```
+- ```git clone https://github.com/Prathamesh-Kothalkar/rankwise.git```
 - ```cd rankwise```
 ### 2. Install Dependencies
 - ```pnpm install```
