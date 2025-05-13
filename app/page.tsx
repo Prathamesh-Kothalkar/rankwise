@@ -9,6 +9,10 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { MultiSelect } from "@/components/multi-select"
 import { GraduationCap, Search } from "lucide-react"
+import { set } from "react-hook-form"
+
+
+
 
 export default function Home() {
   const router = useRouter()
@@ -18,8 +22,10 @@ export default function Home() {
   const [category, setCategory] = useState("")
   const [branches, setBranches] = useState<string[]>([])
   const [location, setLocation] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setIsLoading(true)
     e.preventDefault()
 
     const res = await fetch("/api/users/college-recommendations", {
@@ -35,10 +41,19 @@ export default function Home() {
     })
 
     const data = await res.json()
-    alert(JSON.stringify(data, null, 2));
+    //alert(JSON.stringify(data, null, 2));
     if (res.ok) {
-      router.push("/results") // You can enhance this to pass data via search params or state
+      const queryParams = new URLSearchParams({
+        percentile,
+        gender,
+        category,
+        location,
+        branches: branches.join(","),
+      })
+      router.push(`/results?${queryParams.toString()}`) // You can enhance this to pass data via search params or state
+      setIsLoading
     } else {
+      setIsLoading(false)
       alert(data.error || "Something went wrong")
     }
   }
@@ -145,9 +160,18 @@ export default function Home() {
               </div>
             </div>
             <CardFooter className="flex justify-center mt-4">
-              <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
+              {
+                isLoading ? (
+                  <Button disabled className="w-full bg-teal-600 hover:bg-teal-700">
+                    <Search className="animate-ping" /> Finding Colleges... 
+                  </Button>
+                ) : (
+                  <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
                 <Search className="mr-2 h-4 w-4" /> Find Colleges
               </Button>
+                )
+              }
+             
             </CardFooter>
           </form>
         </CardContent>

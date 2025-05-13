@@ -7,17 +7,12 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
     const { percentile, gender, category, branches, location } = body
-
-    console.log("Received data:", {
-      percentile,
-      gender,
-      category,
-      branches,
-      location,
-    });
+    const validPercentile = !isNaN(percentile) && percentile >= 0 && percentile <= 100;
+    const floatPercentile = parseFloat(percentile);
+   
 
     const filters: any = {
-      cutoff: { lte: percentile },
+      cutoff: { lte: floatPercentile },
       gender,
       category,
     }
