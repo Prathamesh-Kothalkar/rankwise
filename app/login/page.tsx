@@ -9,15 +9,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { GraduationCap, LogIn } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   })
 
   const [errors, setErrors] = useState({
-    email: "",
+    username: "",
     password: "",
   })
 
@@ -35,11 +37,8 @@ export default function LoginPage() {
     let valid = true
     const newErrors = { ...errors }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-      valid = false
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid"
+    if (!formData.username.trim()) {
+      newErrors.username = "username is required"
       valid = false
     }
 
@@ -52,15 +51,28 @@ export default function LoginPage() {
     return valid
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const router = useRouter()
 
-    if (validateForm()) {
-      // Submit form
-      console.log("Form submitted:", formData)
-      // Redirect to dashboard or home
-    }
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+
+  if (!validateForm()) return
+
+  const res = await signIn("credentials", {
+    username: formData.username,
+    password: formData.password,
+    redirect: false,
+  })
+
+  if (res?.ok) {
+    router.push("/") 
+  } else {
+    setErrors((prev) => ({
+      ...prev,
+      password: "Invalid credentials",
+    }))
   }
+}
 
   return (
     <div className="container flex min-h-screen flex-col items-center justify-center py-12">
@@ -80,16 +92,16 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">username</Label>
                 <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={formData.email}
+                  id="username"
+                  name="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  value={formData.username}
                   onChange={handleChange}
                 />
-                {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+                {errors.username && <p className="text-sm text-red-500">{errors.username}</p>}
               </div>
 
               <div className="flex flex-col space-y-1.5">

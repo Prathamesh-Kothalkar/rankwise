@@ -116,7 +116,7 @@ export default function Home() {
                     <SelectValue placeholder="Select your category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="General">General</SelectItem>
+                    <SelectItem value="OPEN">General</SelectItem>
                     <SelectItem value="OBC">OBC</SelectItem>
                     <SelectItem value="SC">SC</SelectItem>
                     <SelectItem value="ST">ST</SelectItem>
@@ -150,10 +150,13 @@ export default function Home() {
                     <SelectValue placeholder="Select preferred location" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Sangli">West India</SelectItem>
-                    <SelectItem value="Pune">West India</SelectItem>
-                    <SelectItem value="Nagpur">Central India</SelectItem>
+                    <SelectItem value="Sangli">Sangli</SelectItem>
+                    <SelectItem value="Pune">Pune</SelectItem>
+                    <SelectItem value="Ratnagiri">Ratnagiri</SelectItem>
                     <SelectItem value="Amravati">Amravati</SelectItem>
+                    <SelectItem value="Nagpur">Nagpur</SelectItem>
+                    <SelectItem value="Mumbai">Mumbai</SelectItem>
+                    <SelectItem value="Chh Sambhajinagar">Chh Sambhajinagar</SelectItem>
                     <SelectItem value="Any">Any Location</SelectItem>
                   </SelectContent>
                 </Select>

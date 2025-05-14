@@ -9,21 +9,24 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { GraduationCap, UserPlus } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   })
 
   const [errors, setErrors] = useState({
     name: "",
-    email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   })
+
+  const router = useRouter()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -44,11 +47,8 @@ export default function RegisterPage() {
       valid = false
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-      valid = false
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid"
+    if (!formData.username.trim()) {
+      newErrors.username = "username is required"
       valid = false
     }
 
@@ -69,15 +69,42 @@ export default function RegisterPage() {
     return valid
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (validateForm()) {
-      // Submit form
-      console.log("Form submitted:", formData)
-      // Redirect to login or dashboard
+  if (!validateForm()) return;
+
+  try {
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        username: formData.username,
+        password: formData.password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      // handle backend errors like 409, 400 etc.
+      alert(data.error || "Something went wrong");
+      return;
     }
+
+    alert("Signup successful!");
+    router.push("/login"); // Redirect to login page after successful signup
+    // Optionally redirect
+    
+  } catch (error) {
+    console.error("Signup error:", error);
+    alert("Something went wrong!");
   }
+};
+
 
   return (
     <div className="container flex min-h-screen flex-col items-center justify-center py-12">
@@ -111,16 +138,16 @@ export default function RegisterPage() {
               </div>
 
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">username</Label>
                 <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={formData.email}
+                  id="username"
+                  name="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  value={formData.username}
                   onChange={handleChange}
                 />
-                {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+                {errors.username && <p className="text-sm text-red-500">{errors.username}</p>}
               </div>
 
               <div className="flex flex-col space-y-1.5">

@@ -55,7 +55,7 @@ export async function POST(req: Request) {
         prisma.collegeCutoff.create({
           data: {
             collegeCode: Number(row["College Code"]),
-            collegeName: row["'College Name'"],
+            collegeName: row["College Name"],
             status: row["Status"] || null,
             location: row["Location"] || null,
             branch: row["Branch"] || "Unknown",

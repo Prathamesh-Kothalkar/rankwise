@@ -1,12 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../lib/generated/prisma"
   binaryTargets = ["native", "windows", "rhel-openssl-3.0.x"]
 }
 
@@ -15,17 +9,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+enum Role {
+  USER
+  ADMIN
+}
 
 model CollegeCutoff {
-  id           Int      @id @default(autoincrement())
-  collegeCode  Int
-  collegeName  String
-  status       String?
-  location     String?
-  branch       String
-  category     String
-  gender       String
-  cutoff       Float
-  createdAt    DateTime @default(now())
+  id          Int     @id @default(autoincrement())
+  collegeCode Int
+  collegeName String
+  status      String?
+  location    String?
+  branch      String
+  category    String
+  gender      String
+  cutoff      Float
+  createdAt   DateTime @default(now())
+  bookmarks   BookmarkCollege[]
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String
+  username  String  @unique
+  password  String
+  role     Role   @default(USER)
+  profile   Profile?
+  bookmarks BookmarkCollege[]
+}
+
+model Profile {
+  id         Int     @id @default(autoincrement())
+  firstname  String
+  lastname   String
+  email      String?
+  mobile     Int
+  percentile Float
+  interestedBranches String[]
+  interestedCities  String[]
+  userId     Int     @unique
+  user       User    @relation(fields: [userId], references: [id])
+}
+
+model BookmarkCollege {
+  id        Int           @id @default(autoincrement())
+  userId    Int
+  collegeId Int
+  user      User          @relation(fields: [userId], references: [id])
+  college   CollegeCutoff @relation(fields: [collegeId], references: [id])
 }
