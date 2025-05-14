@@ -43,7 +43,7 @@ model Profile {
   firstname  String
   lastname   String
   email      String?
-  mobile     Int
+  mobile     String
   percentile Float
   interestedBranches String[]
   interestedCities  String[]

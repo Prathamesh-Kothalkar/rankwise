@@ -3538,14 +3538,12 @@ export namespace Prisma {
 
   export type ProfileAvgAggregateOutputType = {
     id: number | null
-    mobile: number | null
     percentile: number | null
     userId: number | null
   }
 
   export type ProfileSumAggregateOutputType = {
     id: number | null
-    mobile: number | null
     percentile: number | null
     userId: number | null
   }
@@ -3555,7 +3553,7 @@ export namespace Prisma {
     firstname: string | null
     lastname: string | null
     email: string | null
-    mobile: number | null
+    mobile: string | null
     percentile: number | null
     userId: number | null
   }
@@ -3565,7 +3563,7 @@ export namespace Prisma {
     firstname: string | null
     lastname: string | null
     email: string | null
-    mobile: number | null
+    mobile: string | null
     percentile: number | null
     userId: number | null
   }
@@ -3586,14 +3584,12 @@ export namespace Prisma {
 
   export type ProfileAvgAggregateInputType = {
     id?: true
-    mobile?: true
     percentile?: true
     userId?: true
   }
 
   export type ProfileSumAggregateInputType = {
     id?: true
-    mobile?: true
     percentile?: true
     userId?: true
   }
@@ -3722,7 +3718,7 @@ export namespace Prisma {
     firstname: string
     lastname: string
     email: string | null
-    mobile: number
+    mobile: string
     percentile: number
     interestedBranches: string[]
     interestedCities: string[]
@@ -3820,7 +3816,7 @@ export namespace Prisma {
       firstname: string
       lastname: string
       email: string | null
-      mobile: number
+      mobile: string
       percentile: number
       interestedBranches: string[]
       interestedCities: string[]
@@ -4253,7 +4249,7 @@ export namespace Prisma {
     readonly firstname: FieldRef<"Profile", 'String'>
     readonly lastname: FieldRef<"Profile", 'String'>
     readonly email: FieldRef<"Profile", 'String'>
-    readonly mobile: FieldRef<"Profile", 'Int'>
+    readonly mobile: FieldRef<"Profile", 'String'>
     readonly percentile: FieldRef<"Profile", 'Float'>
     readonly interestedBranches: FieldRef<"Profile", 'String[]'>
     readonly interestedCities: FieldRef<"Profile", 'String[]'>
@@ -6071,7 +6067,7 @@ export namespace Prisma {
     firstname?: StringFilter<"Profile"> | string
     lastname?: StringFilter<"Profile"> | string
     email?: StringNullableFilter<"Profile"> | string | null
-    mobile?: IntFilter<"Profile"> | number
+    mobile?: StringFilter<"Profile"> | string
     percentile?: FloatFilter<"Profile"> | number
     interestedBranches?: StringNullableListFilter<"Profile">
     interestedCities?: StringNullableListFilter<"Profile">
@@ -6101,7 +6097,7 @@ export namespace Prisma {
     firstname?: StringFilter<"Profile"> | string
     lastname?: StringFilter<"Profile"> | string
     email?: StringNullableFilter<"Profile"> | string | null
-    mobile?: IntFilter<"Profile"> | number
+    mobile?: StringFilter<"Profile"> | string
     percentile?: FloatFilter<"Profile"> | number
     interestedBranches?: StringNullableListFilter<"Profile">
     interestedCities?: StringNullableListFilter<"Profile">
@@ -6133,7 +6129,7 @@ export namespace Prisma {
     firstname?: StringWithAggregatesFilter<"Profile"> | string
     lastname?: StringWithAggregatesFilter<"Profile"> | string
     email?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    mobile?: IntWithAggregatesFilter<"Profile"> | number
+    mobile?: StringWithAggregatesFilter<"Profile"> | string
     percentile?: FloatWithAggregatesFilter<"Profile"> | number
     interestedBranches?: StringNullableListFilter<"Profile">
     interestedCities?: StringNullableListFilter<"Profile">
@@ -6347,7 +6343,7 @@ export namespace Prisma {
     firstname: string
     lastname: string
     email?: string | null
-    mobile: number
+    mobile: string
     percentile: number
     interestedBranches?: ProfileCreateinterestedBranchesInput | string[]
     interestedCities?: ProfileCreateinterestedCitiesInput | string[]
@@ -6359,7 +6355,7 @@ export namespace Prisma {
     firstname: string
     lastname: string
     email?: string | null
-    mobile: number
+    mobile: string
     percentile: number
     interestedBranches?: ProfileCreateinterestedBranchesInput | string[]
     interestedCities?: ProfileCreateinterestedCitiesInput | string[]
@@ -6370,7 +6366,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    mobile?: IntFieldUpdateOperationsInput | number
+    mobile?: StringFieldUpdateOperationsInput | string
     percentile?: FloatFieldUpdateOperationsInput | number
     interestedBranches?: ProfileUpdateinterestedBranchesInput | string[]
     interestedCities?: ProfileUpdateinterestedCitiesInput | string[]
@@ -6382,7 +6378,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    mobile?: IntFieldUpdateOperationsInput | number
+    mobile?: StringFieldUpdateOperationsInput | string
     percentile?: FloatFieldUpdateOperationsInput | number
     interestedBranches?: ProfileUpdateinterestedBranchesInput | string[]
     interestedCities?: ProfileUpdateinterestedCitiesInput | string[]
@@ -6394,7 +6390,7 @@ export namespace Prisma {
     firstname: string
     lastname: string
     email?: string | null
-    mobile: number
+    mobile: string
     percentile: number
     interestedBranches?: ProfileCreateinterestedBranchesInput | string[]
     interestedCities?: ProfileCreateinterestedCitiesInput | string[]
@@ -6405,7 +6401,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    mobile?: IntFieldUpdateOperationsInput | number
+    mobile?: StringFieldUpdateOperationsInput | string
     percentile?: FloatFieldUpdateOperationsInput | number
     interestedBranches?: ProfileUpdateinterestedBranchesInput | string[]
     interestedCities?: ProfileUpdateinterestedCitiesInput | string[]
@@ -6416,7 +6412,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    mobile?: IntFieldUpdateOperationsInput | number
+    mobile?: StringFieldUpdateOperationsInput | string
     percentile?: FloatFieldUpdateOperationsInput | number
     interestedBranches?: ProfileUpdateinterestedBranchesInput | string[]
     interestedCities?: ProfileUpdateinterestedCitiesInput | string[]
@@ -6753,7 +6749,6 @@ export namespace Prisma {
 
   export type ProfileAvgOrderByAggregateInput = {
     id?: SortOrder
-    mobile?: SortOrder
     percentile?: SortOrder
     userId?: SortOrder
   }
@@ -6780,7 +6775,6 @@ export namespace Prisma {
 
   export type ProfileSumOrderByAggregateInput = {
     id?: SortOrder
-    mobile?: SortOrder
     percentile?: SortOrder
     userId?: SortOrder
   }
@@ -7245,7 +7239,7 @@ export namespace Prisma {
     firstname: string
     lastname: string
     email?: string | null
-    mobile: number
+    mobile: string
     percentile: number
     interestedBranches?: ProfileCreateinterestedBranchesInput | string[]
     interestedCities?: ProfileCreateinterestedCitiesInput | string[]
@@ -7256,7 +7250,7 @@ export namespace Prisma {
     firstname: string
     lastname: string
     email?: string | null
-    mobile: number
+    mobile: string
     percentile: number
     interestedBranches?: ProfileCreateinterestedBranchesInput | string[]
     interestedCities?: ProfileCreateinterestedCitiesInput | string[]
@@ -7301,7 +7295,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    mobile?: IntFieldUpdateOperationsInput | number
+    mobile?: StringFieldUpdateOperationsInput | string
     percentile?: FloatFieldUpdateOperationsInput | number
     interestedBranches?: ProfileUpdateinterestedBranchesInput | string[]
     interestedCities?: ProfileUpdateinterestedCitiesInput | string[]
@@ -7312,7 +7306,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     lastname?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    mobile?: IntFieldUpdateOperationsInput | number
+    mobile?: StringFieldUpdateOperationsInput | string
     percentile?: FloatFieldUpdateOperationsInput | number
     interestedBranches?: ProfileUpdateinterestedBranchesInput | string[]
     interestedCities?: ProfileUpdateinterestedCitiesInput | string[]

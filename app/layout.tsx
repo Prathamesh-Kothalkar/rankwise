@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import AuthProvider from '@/context/AuthProvider'
 
 export const metadata: Metadata = {
   title: 'Rank Wise App',
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
   },
 }
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -41,7 +43,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <AuthProvider>
       <body>{children}</body>
+      </AuthProvider>
     </html>
   )
 }
+
+
