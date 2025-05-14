@@ -32,6 +32,7 @@
 ### 🛠️ Admin Panel
 - Upload Excel files containing historical cutoff data
 - Secure data management via protected API
+- List of all Users (Students)
 
 ### 🔐 Auth System (Demo)
 - Register and login pages with modern responsive UI
@@ -48,7 +49,7 @@
 ### 2. Install Dependencies
 - ```pnpm install```
 ### 3. Run the Development Server
-```pnpm dev```
+- ```pnpm dev```
 Visit ```http://localhost:3000``` to view the app.
 --- 
 - 🧪 Planned Enhancements
@@ -59,9 +60,6 @@ Visit ```http://localhost:3000``` to view the app.
 ---
 🤝 Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you’d like to change or improve.
----
-📄 License
-MIT License © 2025 Prathamesh Kothalkar
 ---
 🌟 Show Your Support
 If you found this project helpful, please consider giving it a ⭐ on GitHub!
