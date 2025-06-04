@@ -1,182 +1,130 @@
 "use client"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React from "react";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MultiSelect } from "@/components/multi-select"
-import { GraduationCap, Search } from "lucide-react"
-
-
-
-
-export default function Home() {
-  const router = useRouter()
-
-  const [percentile, setPercentile] = useState("")
-  const [gender, setGender] = useState("")
-  const [category, setCategory] = useState("")
-  const [branches, setBranches] = useState<string[]>([])
-  const [location, setLocation] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    setIsLoading(true)
-    e.preventDefault()
-
-    const res = await fetch("/api/users/college-recommendations", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        percentile: parseFloat(percentile),
-        gender,
-        category,
-        branches,
-        location,
-      }),
-    })
-
-    const data = await res.json()
-    //alert(JSON.stringify(data, null, 2));
-    if (res.ok) {
-      const queryParams = new URLSearchParams({
-        percentile,
-        gender,
-        category,
-        location,
-        branches: branches.join(","),
-      })
-      router.push(`/results?${queryParams.toString()}`) // You can enhance this to pass data via search params or state
-      setIsLoading
-    } else {
-      setIsLoading(false)
-      alert(data.error || "Something went wrong")
-    }
-  }
-
+export default function HomePage() {
+  const router= useRouter();
+  const handleRedirect = () => {
+    router.push("/studentform");
+  };
   return (
-    <div className="container flex min-h-screen flex-col items-center justify-center py-12">
-      {/* Header */}
-      <div className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 text-center">
-        <div className="flex items-center justify-center gap-2">
-          <GraduationCap className="h-8 w-8 text-teal-600" />
-          <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]">
-            RankWise
-          </h1>
+    <div className="min-h-screen bg-white text-[#0F766E]">
+      {/* Navbar */}
+      <nav className="flex items-center justify-between px-6 py-4 shadow-md">
+        <h1 className="text-2xl font-bold">Rankwise</h1>
+        <Button 
+        className="bg-[#0F766E] text-white px-6 py-2 rounded-lg hover:bg-[#0e665f] transition"
+        onClick={handleRedirect}>
+          Try for Free
+        </Button>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 gap-10">
+        {/* Text Content */}
+        <div className="max-w-xl">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+            Get Your Best College Recommendation for MH-CET
+          </h2>
+          <p className="text-lg mb-6 text-gray-700">
+            Rankwise uses AI to help you discover the best engineering colleges in Maharashtra based on your MH-CET score.
+          </p>
+          <Button 
+          className="bg-[#0F766E] text-white px-8 py-3 rounded-lg text-lg hover:bg-[#0e665f] transition"
+          onClick={handleRedirect}>
+            Try for Free
+          </Button>
         </div>
-        <h2 className="max-w-[750px] text-lg text-muted-foreground sm:text-xl">
-          Discover the perfect college based on your entrance exam percentile and preferences
-        </h2>
-      </div>
 
-      {/* Form Card */}
-      <Card className="mx-auto w-full max-w-md transition-all hover:shadow-lg">
-        <CardHeader>
-          <CardTitle className="text-2xl">Find Your College</CardTitle>
-          <CardDescription>Enter your details to get college recommendations</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <label htmlFor="percentile">Percentile</label>
-                <Input
-                  id="percentile"
-                  type="number"
-                  min="0"
-                  max="100"
-                  value={percentile}
-                  onChange={(e) => setPercentile(e.target.value)}
-                  required
-                />
-              </div>
+        {/* Hero Image / Illustration */}
+        <div>
+          <Image
+            width={500}
+            height={500}
+            alt="Rankwise Image"
+            className="w-full max-w-md mx-auto"
+            src="/sampleimg.jpg"
+            />
+        </div>
+      </section>
 
-              <div className="flex flex-col space-y-1.5">
-                <label htmlFor="gender">Gender</label>
-                <Select onValueChange={setGender}>
-                  <SelectTrigger id="gender">
-                    <SelectValue placeholder="Select your gender" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Male">Male</SelectItem>
-                    <SelectItem value="Female">Female</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+       <div className="">
+          <HowItWorksAndFAQ />
+        </div>
 
-              <div className="flex flex-col space-y-1.5">
-                <label htmlFor="category">Category</label>
-                <Select onValueChange={setCategory}>
-                  <SelectTrigger id="category">
-                    <SelectValue placeholder="Select your category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="OPEN">General</SelectItem>
-                    <SelectItem value="OBC">OBC</SelectItem>
-                    <SelectItem value="SC">SC</SelectItem>
-                    <SelectItem value="ST">ST</SelectItem>
-                    <SelectItem value="EWS">EWS</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <label htmlFor="branch">Branch Preference</label>
-                <MultiSelect
-                  placeholder="Select branches"
-                  options={[
-                    { label: "Computer Science", value: "CS/CSE" },
-                    { label: "Information Technology", value: "IT" },
-                    { label: "Electronics", value: "ECE" },
-                    { label: "Electrical", value: "EE" },
-                    { label: "Mechanical", value: "MECH" },
-                    { label: "Civil", value: "CIVIL" },
-                    { label: "Chemical", value: "CHE" },
-                  ]}
-                  selected={branches}
-                  onChange={setBranches}
-                />
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <label htmlFor="location">Location</label>
-                <Select onValueChange={setLocation}>
-                  <SelectTrigger id="location">
-                    <SelectValue placeholder="Select preferred location" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Sangli">Sangli</SelectItem>
-                    <SelectItem value="Pune">Pune</SelectItem>
-                    <SelectItem value="Ratnagiri">Ratnagiri</SelectItem>
-                    <SelectItem value="Amravati">Amravati</SelectItem>
-                    <SelectItem value="Nagpur">Nagpur</SelectItem>
-                    <SelectItem value="Mumbai">Mumbai</SelectItem>
-                    <SelectItem value="Chh Sambhajinagar">Chh Sambhajinagar</SelectItem>
-                    <SelectItem value="Any">Any Location</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <CardFooter className="flex justify-center mt-4">
-              {
-                isLoading ? (
-                  <Button disabled className="w-full bg-teal-600 hover:bg-teal-700">
-                    <Search className="animate-ping" /> Finding Colleges... 
-                  </Button>
-                ) : (
-                  <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
-                <Search className="mr-2 h-4 w-4" /> Find Colleges
-              </Button>
-                )
-              }
-             
-            </CardFooter>
-          </form>
-        </CardContent>
-      </Card>
+      {/* Footer (Optional) */}
+      <CardFooter className="text-center py-6 text-sm text-gray-500">
+        © 2025 Rankwise. All rights reserved.
+      </CardFooter>
+      
     </div>
-  )
+  );
 }
+
+
+export  function HowItWorksAndFAQ() {
+  return (
+    <div className="bg-white text-[#0F766E] px-6 md:px-16 py-16 space-y-24">
+
+      {/* How It Works Section */}
+      <section>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">How It Works</h2>
+        <div className="grid md:grid-cols-3 gap-10 text-center">
+          {[
+            {
+              title: "1. Enter Your MH-CET Score",
+              desc: "Provide your MH-CET score to begin the recommendation process."
+            },
+            {
+              title: "2. Get Personalized Matches",
+              desc: "Our AI analyzes your profile and matches it with top colleges."
+            },
+            {
+              title: "3. Explore & Apply",
+              desc: "View detailed info about your matched colleges and take action."
+            }
+          ].map((item, i) => (
+            <Card key={i} className="bg-[#F0FDF9] p-6 rounded-xl shadow-md">
+              <CardContent className="text-xl font-semibold mb-2">{item.title}</CardContent>
+              <p className="text-gray-700">{item.desc}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+        <div className="space-y-6 max-w-3xl mx-auto">
+          {[
+            {
+              question: "Is Rankwise free to use?",
+              answer: "Yes! Rankwise is completely free for students to explore college recommendations."
+            },
+            {
+              question: "Which exams does it support?",
+              answer: "Currently, Rankwise only supports MH-CET based recommendations for engineering colleges."
+            },
+            {
+              question: "How accurate are the recommendations?",
+              answer: "We use AI and past admission data to provide highly relevant and personalized suggestions."
+            },
+            {
+              question: "Can I apply directly through Rankwise?",
+              answer: "We provide links and guidance, but the final application is done through the official CAP portal."
+            }
+          ].map((faq, i) => (
+            <details key={i} className="bg-[#F0FDF9] p-4 rounded-lg shadow-sm">
+              <summary className="cursor-pointer font-semibold text-lg">{faq.question}</summary>
+              <p className="text-gray-700 mt-2">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+

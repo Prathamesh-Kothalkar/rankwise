@@ -115,6 +115,54 @@ const NavigationMenuIndicator = React.forwardRef<
 NavigationMenuIndicator.displayName =
   NavigationMenuPrimitive.Indicator.displayName
 
+// Mobile Responsive Navbar Component
+import Link from "next/link"
+
+export function AppNavbar() {
+  return (
+    <nav className="w-full border-b bg-background px-4 py-2 flex items-center justify-between md:px-8">
+      {/* Logo */}
+      <Link href="/" className="font-bold text-lg text-primary">
+        RankWise
+      </Link>
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex gap-4 items-center">
+        <Link href="/option1" className="hover:text-accent-foreground transition-colors">Option 1</Link>
+        <Link href="/option2" className="hover:text-accent-foreground transition-colors">Option 2</Link>
+        <Link href="/option3" className="hover:text-accent-foreground transition-colors">Option 3</Link>
+      </div>
+      {/* Mobile Hamburger */}
+      <div className="md:hidden">
+        <MobileMenu />
+      </div>
+    </nav>
+  )
+}
+
+function MobileMenu() {
+  const [open, setOpen] = React.useState(false)
+  return (
+    <>
+      <button
+        className="flex flex-col gap-1.5 p-2 focus:outline-none"
+        aria-label="Open menu"
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="block w-6 h-0.5 bg-primary rounded" />
+        <span className="block w-6 h-0.5 bg-primary rounded" />
+        <span className="block w-6 h-0.5 bg-primary rounded" />
+      </button>
+      {open && (
+        <div className="absolute top-14 left-0 w-full bg-background border-b shadow-md flex flex-col items-center gap-4 py-4 z-50 animate-in fade-in slide-in-from-top-4">
+          <Link href="/option1" className="w-full text-center py-2 hover:bg-accent" onClick={() => setOpen(false)}>Option 1</Link>
+          <Link href="/option2" className="w-full text-center py-2 hover:bg-accent" onClick={() => setOpen(false)}>Option 2</Link>
+          <Link href="/option3" className="w-full text-center py-2 hover:bg-accent" onClick={() => setOpen(false)}>Option 3</Link>
+        </div>
+      )}
+    </>
+  )
+}
+
 export {
   navigationMenuTriggerStyle,
   NavigationMenu,

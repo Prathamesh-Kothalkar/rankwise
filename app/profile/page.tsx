@@ -20,6 +20,7 @@ import {
 import { Label } from "@/components/ui/label"
 import { GraduationCap } from "lucide-react"
 import { getSession, signOut } from "next-auth/react"
+import Navbar from "@/components/Navbar"
 
 export default function Profile() {
   const [name, setName] = useState("")
@@ -79,22 +80,12 @@ export default function Profile() {
     }
   }
 
-  if (loading) return <div className="text-center py-10">Loading...</div>
+  if (loading) return <SkeletonProfile/>
 
   return (
     <>
       {/* Header */}
-      <div className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 text-center">
-        <div className="flex items-center justify-center gap-2">
-          <GraduationCap className="h-8 w-8 text-teal-600" />
-          <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]">
-            RankWise
-          </h1>
-        </div>
-        <h2 className="max-w-[750px] text-lg text-muted-foreground sm:text-xl">
-          Discover the perfect college based on your entrance exam percentile and preferences
-        </h2>
-      </div>
+      <Navbar/>
 
       {/* Profile Card */}
       <div className="min-h-screen bg-muted flex items-center justify-center py-12 px-4">
@@ -195,5 +186,36 @@ export default function Profile() {
         </Card>
       </div>
     </>
+  )
+}
+
+
+// components/SkeletonProfile.tsx
+import { Skeleton } from "@/components/ui/skeleton"
+
+export function SkeletonProfile() {
+  return (
+    <div className="min-h-screen bg-muted flex items-center justify-center py-12 px-4">
+      <div className="w-full max-w-lg shadow-xl rounded-2xl p-6 bg-white space-y-6 animate-pulse">
+        {/* Avatar */}
+        <div className="flex flex-col items-center gap-4">
+          <Skeleton className="h-24 w-24 rounded-full" />
+          <Skeleton className="h-6 w-40 rounded-md" />
+        </div>
+
+        {/* Form fields */}
+        <div className="space-y-4">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="space-y-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-10 w-full rounded-md" />
+            </div>
+          ))}
+        </div>
+
+        {/* Submit Button */}
+        <Skeleton className="h-10 w-full rounded-md" />
+      </div>
+    </div>
   )
 }
