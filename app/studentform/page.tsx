@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MultiSelect } from "@/components/multi-select"
 import { GraduationCap, Search } from "lucide-react"
 import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
 
 
 
@@ -57,7 +58,7 @@ export default function Home() {
 
   return (
     <>  <Navbar/>
-    <div className="container flex min-h-screen flex-col items-center justify-center py-12">
+    <div className="container flex min-h-screen flex-col items-center justify-center py-12 mt-16">
       {/* Header */}
       {/* Form Card */}
       <Card className="mx-auto w-full max-w-md transition-all hover:shadow-lg">
@@ -166,6 +167,7 @@ export default function Home() {
         </CardContent>
       </Card>
     </div>
+    <Footer/>
     </>
   )
 }

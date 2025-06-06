@@ -1,4 +1,5 @@
 "use client"
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
@@ -56,10 +57,7 @@ export default function HomePage() {
         </div>
 
       {/* Footer (Optional) */}
-      <CardFooter className="text-center py-6 text-sm text-gray-500">
-        © 2025 Rankwise. All rights reserved.
-      </CardFooter>
-      
+     <Footer/>
     </div>
   );
 }

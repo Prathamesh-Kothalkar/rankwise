@@ -9,6 +9,17 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogTrigger,
+  DialogClose
+} from "@/components/ui/dialog";
+
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
@@ -16,6 +27,9 @@ import { ArrowLeft, Bookmark, BookmarkCheck, Download, FileDown, FileText, Filte
 import { getSession } from "next-auth/react"
 import Navbar from "@/components/Navbar"
 import { utils as XLSXUtils, writeFile as XLSXWriteFile } from "xlsx"
+import jsPDF from "jspdf";
+import "jspdf-autotable"; // this patches jsPDF
+
 
 type College = {
   id: number
@@ -35,6 +49,9 @@ export default function ResultsPage() {
   const [colleges, setColleges] = useState<College[]>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<Boolean>(true)
+  const [aiDialogOpen, setAiDialogOpen] = useState<boolean>(false);
+const [aiResponse, setAiResponse] = useState<String>("");
+
   const searchParams = useSearchParams()
 
 
@@ -87,7 +104,9 @@ export default function ResultsPage() {
     }
     try {
       const response = await axios.post(`/api/users/genai/info/${collegeId}`)
-      alert(`AI response: ${response.data.message}`)
+      console.log(response.data.summary);
+      setAiResponse(response.data.summary);
+      setAiDialogOpen(true);
     } catch (error) {
       console.error("Error generating AI response:", error)
       alert("Failed to generate AI response. Please try again later.")
@@ -103,45 +122,38 @@ export default function ResultsPage() {
 
   const bookmarkedColleges = colleges.filter((college) => college.isBookmarked)
 
+
+
   const exportData = (format: string) => {
-    if (!isUserLoggedIn) {
-      alert("Please log in to export data.")
-      return
-    }
-    if (format === "csv") {
-      // Prepare data for CSV
-      const exportCols = colleges.map(({ id, isBookmarked, ...rest }) => rest)
-      const ws = XLSXUtils.json_to_sheet(exportCols)
-      const wb = XLSXUtils.book_new()
-      XLSXUtils.book_append_sheet(wb, ws, "Colleges")
-      XLSXWriteFile(wb, "colleges.csv")
-    } else if (format === "pdf") {
-      import("jspdf").then(jsPDFModule => {
-      import("jspdf-autotable").then(() => {
-        try {
-          const doc = new jsPDFModule.jsPDF()
-          const columns = Object.keys(exportCols[0])
-          const rows = exportCols.map(row => columns.map(col => row[col]))
-
-          // @ts-ignore
-          doc.autoTable({
-            head: [columns],
-            body: rows,
-            styles: { fontSize: 9 },
-            margin: { top: 20 },
-          })
-
-          doc.save("colleges.pdf")
-        } catch (err) {
-          console.error("PDF export failed:", err)
-          alert("Failed to export PDF.")
-        }
-      })
-    })
-    } else {
-      alert(`Exporting data in ${format} format is not supported.`)
-    }
+  if (!isUserLoggedIn) {
+    alert("Please log in to export data.");
+    return;
   }
+  if (format === "csv") {
+    const exportCols = colleges.map(({ id, isBookmarked, ...rest }) => rest);
+    const ws = XLSXUtils.json_to_sheet(exportCols);
+    const wb = XLSXUtils.book_new();
+    XLSXUtils.book_append_sheet(wb, ws, "Colleges");
+    XLSXWriteFile(wb, "colleges.csv");
+  } else if (format === "pdf") {
+    const exportCols = colleges.map(({ id, isBookmarked, ...rest }) => rest);
+    const doc = new jsPDF();
+    const columns = Object.keys(exportCols[0]);
+    const rows = exportCols.map((row) => columns.map((col) => row[col]));
+    console.log(doc);
+    doc.autoTable({
+      head: [columns],
+      body: rows,
+      styles: { fontSize: 9 },
+      margin: { top: 20 },
+    });
+
+    doc.save("colleges.pdf");
+  } else {
+    alert(`Exporting data in ${format} format is not supported.`);
+  }
+};
+
 
   return (
     <><Navbar/>
@@ -212,6 +224,25 @@ export default function ResultsPage() {
       <CardFooter className="text-center py-6 text-sm text-gray-500">
         © 2025 Rankwise. All rights reserved.
       </CardFooter>
+      <Dialog open={aiDialogOpen} onOpenChange={setAiDialogOpen}>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>AI Summary</DialogTitle>
+      <DialogDescription>
+        Here is the AI generated summary for this college:
+      </DialogDescription>
+    </DialogHeader>
+    <div className="p-4 max-h-[300px] overflow-y-auto text-sm text-gray-700 whitespace-pre-line">
+      {aiResponse}
+    </div>
+    <DialogFooter>
+      <DialogClose asChild>
+        <Button variant="outline">Close</Button>
+      </DialogClose>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+
     </>
   )
 }

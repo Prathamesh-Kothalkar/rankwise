@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { GraduationCap, UserPlus } from "lucide-react"
 import { useRouter } from "next/navigation"
+import Footer from "@/components/Footer"
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -191,6 +192,7 @@ export default function RegisterPage() {
           </p>
         </CardFooter>
       </Card>
+      <Footer/>
     </div>
   )
 }

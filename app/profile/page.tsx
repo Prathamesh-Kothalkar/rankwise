@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import Footer from "@/components/Footer"
 import axios from "axios"
 
 import {
@@ -88,7 +89,7 @@ export default function Profile() {
       <Navbar/>
 
       {/* Profile Card */}
-      <div className="min-h-screen bg-muted flex items-center justify-center py-12 px-4">
+      <div className="min-h-screen bg-muted flex items-center justify-center py-12 px-4 mt-16">
         <Card className="w-full max-w-lg shadow-xl rounded-2xl">
           <CardHeader>
             <CardTitle className="text-center text-2xl font-semibold">
@@ -185,6 +186,7 @@ export default function Profile() {
           </CardContent>
         </Card>
       </div>
+      <Footer/>
     </>
   )
 }
@@ -192,6 +194,7 @@ export default function Profile() {
 
 // components/SkeletonProfile.tsx
 import { Skeleton } from "@/components/ui/skeleton"
+
 
 export function SkeletonProfile() {
   return (
@@ -217,5 +220,6 @@ export function SkeletonProfile() {
         <Skeleton className="h-10 w-full rounded-md" />
       </div>
     </div>
+    
   )
 }
