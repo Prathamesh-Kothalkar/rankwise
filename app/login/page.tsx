@@ -65,7 +65,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   })
 
   if (res?.ok) {
-    router.push("/") 
+    router.push("/studentform") 
   } else {
     setErrors((prev) => ({
       ...prev,

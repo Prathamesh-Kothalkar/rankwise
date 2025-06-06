@@ -6,13 +6,16 @@ import axios from "axios"
 import { useSearchParams } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Bookmark, BookmarkCheck, Download, FileDown, Filter, SortAsc } from "lucide-react"
+import { ArrowLeft, Bookmark, BookmarkCheck, Download, FileDown, FileText, Filter, GemIcon, SortAsc, Sparkle, Sparkles } from "lucide-react"
+import { getSession } from "next-auth/react"
+import Navbar from "@/components/Navbar"
+import { utils as XLSXUtils, writeFile as XLSXWriteFile } from "xlsx"
 
 type College = {
   id: number
@@ -24,14 +27,16 @@ type College = {
   gender: string
   location: string
   status: string
-  createdAt: string // or Date if parsed as Date
+  createdAt: string 
   isBookmarked :boolean
 }
 
 export default function ResultsPage() {
   const [colleges, setColleges] = useState<College[]>([])
   const [searchTerm, setSearchTerm] = useState("")
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<Boolean>(true)
   const searchParams = useSearchParams()
+
 
   const percentile = searchParams.get("percentile")
   const gender = searchParams.get("gender")
@@ -54,6 +59,16 @@ export default function ResultsPage() {
       }))
       setColleges(fetchedColleges)
     }
+    const checkUserLoggedIn = async () => {
+      const session = await getSession();
+      if(!session){
+        setIsUserLoggedIn(false);
+      }else{
+        setIsUserLoggedIn(true);
+      }
+    }
+
+    checkUserLoggedIn()
     fetchColleges()
   }, [])
 
@@ -63,6 +78,20 @@ export default function ResultsPage() {
         college.id === id ? { ...college, isBookmarked: !college.isBookmarked } : college
       )
     )
+  }
+
+  const handleGenAi = async (collegeId: number) => {
+    if (!isUserLoggedIn) {
+      alert("Please log in to use AI features.")
+      return
+    }
+    try {
+      const response = await axios.post(`/api/users/genai/info/${collegeId}`)
+      alert(`AI response: ${response.data.message}`)
+    } catch (error) {
+      console.error("Error generating AI response:", error)
+      alert("Failed to generate AI response. Please try again later.")
+    }
   }
 
   const filteredColleges = colleges.filter(
@@ -75,22 +104,70 @@ export default function ResultsPage() {
   const bookmarkedColleges = colleges.filter((college) => college.isBookmarked)
 
   const exportData = (format: string) => {
-    alert(`Exporting data in ${format} format`)
-    // Export logic here (PDF/CSV)
+    if (!isUserLoggedIn) {
+      alert("Please log in to export data.")
+      return
+    }
+    if (format === "csv") {
+      // Prepare data for CSV
+      const exportCols = colleges.map(({ id, isBookmarked, ...rest }) => rest)
+      const ws = XLSXUtils.json_to_sheet(exportCols)
+      const wb = XLSXUtils.book_new()
+      XLSXUtils.book_append_sheet(wb, ws, "Colleges")
+      XLSXWriteFile(wb, "colleges.csv")
+    } else if (format === "pdf") {
+      import("jspdf").then(jsPDFModule => {
+      import("jspdf-autotable").then(() => {
+        try {
+          const doc = new jsPDFModule.jsPDF()
+          const columns = Object.keys(exportCols[0])
+          const rows = exportCols.map(row => columns.map(col => row[col]))
+
+          // @ts-ignore
+          doc.autoTable({
+            head: [columns],
+            body: rows,
+            styles: { fontSize: 9 },
+            margin: { top: 20 },
+          })
+
+          doc.save("colleges.pdf")
+        } catch (err) {
+          console.error("PDF export failed:", err)
+          alert("Failed to export PDF.")
+        }
+      })
+    })
+    } else {
+      alert(`Exporting data in ${format} format is not supported.`)
+    }
   }
 
   return (
-    <div className="container py-8">
-      <div className="mb-8 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Link href="/">
+    <><Navbar/>
+    <div className="p-3 mt-16">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 m-2">
+          <Link href="/studentform">
             <Button variant="outline" size="icon">
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold">College Recommendations</h1>
+          <h1 className="text-xl sm:text-xl font-bold">College Recommendations</h1>
         </div>
-        <div className="flex gap-2">
+      </div>
+
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative w-full max-w-sm">
+          <Input
+            placeholder="Search colleges, branches..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+          <SearchIcon className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+        </div>
+         <div className="flex gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
@@ -112,28 +189,6 @@ export default function ResultsPage() {
         </div>
       </div>
 
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="relative w-full max-w-sm">
-          <Input
-            placeholder="Search colleges, branches..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
-          <SearchIcon className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            <Filter className="mr-2 h-4 w-4" />
-            Filter
-          </Button>
-          <Button variant="outline" size="sm">
-            <SortAsc className="mr-2 h-4 w-4" />
-            Sort
-          </Button>
-        </div>
-      </div>
-
       <Tabs defaultValue="all">
         <TabsList>
           <TabsTrigger value="all">All Colleges</TabsTrigger>
@@ -147,17 +202,29 @@ export default function ResultsPage() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="all" className="mt-6">
-          <CollegeTable colleges={filteredColleges} toggleBookmark={toggleBookmark} />
+          <CollegeTable colleges={filteredColleges} toggleBookmark={toggleBookmark} handleGenAi={handleGenAi} />
         </TabsContent>
         <TabsContent value="bookmarked" className="mt-6">
-          <CollegeTable colleges={bookmarkedColleges} toggleBookmark={toggleBookmark} />
+          <CollegeTable colleges={bookmarkedColleges} toggleBookmark={toggleBookmark} handleGenAi={handleGenAi} />
         </TabsContent>
       </Tabs>
     </div>
+      <CardFooter className="text-center py-6 text-sm text-gray-500">
+        © 2025 Rankwise. All rights reserved.
+      </CardFooter>
+    </>
   )
 }
 
-const CollegeTable = ({ colleges, toggleBookmark }: { colleges: College[]; toggleBookmark: (id: number) => void }) => (
+const CollegeTable = ({
+  colleges,
+  toggleBookmark,
+  handleGenAi,
+}: {
+  colleges: College[];
+  toggleBookmark: (id: number) => void;
+  handleGenAi: (collegeId: number) => void;
+}) => (
   <Card>
     <CardHeader className="pb-0">
       <CardTitle>Colleges</CardTitle>
@@ -174,6 +241,7 @@ const CollegeTable = ({ colleges, toggleBookmark }: { colleges: College[]; toggl
               <TableHead>Location</TableHead>
               <TableHead>Past Cutoff</TableHead>
               <TableHead className="w-[80px]">Action</TableHead>
+               <TableHead>AI Summary</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -193,6 +261,13 @@ const CollegeTable = ({ colleges, toggleBookmark }: { colleges: College[]; toggl
                         <Bookmark className="h-5 w-5" />
                       )}
                     </Button>
+                  </TableCell>
+                  <TableCell>
+                     <Button variant="ghost" size="icon" onClick={()=>handleGenAi(college.id)}>
+                        <Sparkles className="text-purple-500" />
+                        {/* <FileText className="text-gray-600" /> */}
+                        <span>AI</span>
+                      </Button>
                   </TableCell>
                 </TableRow>
               ))

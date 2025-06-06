@@ -69,13 +69,18 @@ export default function Navbar() {
             FAQ
           </Link>
           {isUserLoggedIn ? (
-                <Link href="/profile" className="bg-[#0F766E] text-white px-5 py-2 rounded-lg hover:bg-[#0e665f] transition">
+              <div className="">
+                 <Link href="/profile" className="bg-[#0F766E] text-white px-5 py-2 rounded-lg hover:bg-[#0e665f] transition">
                   My Profile
                 </Link>
+              </div>
+               
             ) : (
+              <div className="">
                 <Link href="/login" className="bg-[#0F766E] text-white px-5 py-2 rounded-lg hover:bg-[#0e665f] transition">
                 Login Now
                 </Link>
+                </div>
             )}
         </div>
       )}
