@@ -258,9 +258,6 @@ export default function ResultsPage() {
           </TabsContent>
         </Tabs>
       </div>
-      <CardFooter className="text-center py-6 text-sm text-gray-500">
-        © 2025 Rankwise. All rights reserved.
-      </CardFooter>
 
       <Dialog open={aiDialogOpen} onOpenChange={setAiDialogOpen}>
         <DialogContent>
