@@ -104,14 +104,14 @@ export  function HowItWorksAndFAQ() {
             },
             {
               question: "Which exams does it support?",
-              answer: "Currently, Rankwise only supports MH-CET based recommendations for engineering colleges."
+              answer: "Currently, GMS only supports MH-CET based recommendations for engineering colleges."
             },
             {
               question: "How accurate are the recommendations?",
               answer: "We use AI and past admission data to provide highly relevant and personalized suggestions."
             },
             {
-              question: "Can I apply directly through Rankwise?",
+              question: "Can I apply directly through GMS?",
               answer: "We provide links and guidance, but the final application is done through the official CAP portal."
             }
           ].map((faq, i) => (

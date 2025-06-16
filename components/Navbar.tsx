@@ -31,11 +31,11 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link href="/" className="hover:underline">
-            How It Works
+          <Link href="/about" className="hover:underline">
+            About Us
           </Link>
-          <Link href="/#faq" className="hover:underline">
-            FAQ
+          <Link href="/contact-us" className="hover:underline">
+            Contact Us
           </Link>
         
             {isUserLoggedIn ? (
@@ -62,11 +62,11 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden mt-4 space-y-4">
-          <Link href="/" className="block hover:underline" onClick={() => setIsOpen(false)}>
-            How It Works
+          <Link href="/about" className="block hover:underline" onClick={() => setIsOpen(false)}>
+            About Us
           </Link>
-          <Link href="/" className="block hover:underline" onClick={() => setIsOpen(false)}>
-            FAQ
+          <Link href="/contact-us" className="block hover:underline" onClick={() => setIsOpen(false)}>
+            Contact Us
           </Link>
           {isUserLoggedIn ? (
               <div className="">
