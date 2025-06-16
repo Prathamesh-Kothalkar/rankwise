@@ -1,40 +1,57 @@
 // app/api/users/genai/info/[id]/route.ts
+
 import { PrismaClient } from '@/lib/generated/prisma';
 import { NextRequest, NextResponse } from 'next/server';
-import { generateCollegeSummary } from '@/lib/genaiUtils';
-
+import { generateRealCollegeSummary } from '@/lib/genaiUtils';
+import { redis } from '@/lib/redis'; 
 const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest, { params }: { params: { id: number } }) {
-    const collegeId = await params.id;
+    const collegeId = Number(params.id);
+
+    if (isNaN(collegeId)) {
+        return NextResponse.json({ error: 'Invalid college ID' }, { status: 400 });
+    }
+
+    const cacheKey = `college:summary:${collegeId}`;
+    
+   
+    const cachedSummary = await redis.get<string>(cacheKey);
+    if (cachedSummary) {
+        return NextResponse.json({
+            collegeId,
+            cached: true,
+            summary: cachedSummary,
+        });
+    }
 
     const college = await prisma.collegeCutoff.findUnique({
-        where: { id: Number(collegeId) },
+        where: { id: collegeId },
         select: {
             collegeName: true,
             location: true,
+            branch: true,
         },
     });
-
-    // console.log('Received college ID:', collegeId);
-    // console.log('College Data:', college);
 
     if (!college) {
         return NextResponse.json({ error: 'College not found' }, { status: 404 });
     }
 
     try {
-        const summary = await generateCollegeSummary({
-            collegeName: college.collegeName,
-            location: college.location || 'NA',
-        });
+        const summary = await generateRealCollegeSummary(
+            college.collegeName,
+            college.branch || 'NA'
+        );
 
-        // console.log('Generated Summary:', summary);
+       
+        await redis.set(cacheKey, summary, { ex: 60 * 60 * 12 });
 
         return NextResponse.json({
             collegeId,
             collegeName: college.collegeName,
             summary,
+            cached: false,
         });
     } catch (err) {
         console.error('Error generating summary:', err);

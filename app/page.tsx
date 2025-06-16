@@ -15,7 +15,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white text-[#0F766E]">
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-4 shadow-md">
-        <h1 className="text-2xl font-bold">Rankwise</h1>
+        <h1 className="text-2xl font-bold">Guess My College</h1>
         <Button 
         className="bg-[#0F766E] text-white px-6 py-2 rounded-lg hover:bg-[#0e665f] transition"
         onClick={handleRedirect}>
@@ -31,7 +31,7 @@ export default function HomePage() {
             Get Your Best College Recommendation for MH-CET
           </h2>
           <p className="text-lg mb-6 text-gray-700">
-            Rankwise uses AI to help you discover the best engineering colleges in Maharashtra based on your MH-CET score.
+            GMC (Guess My College) uses AI to help you discover the best engineering colleges in Maharashtra based on your MH-CET score.
           </p>
           <Button 
           className="bg-[#0F766E] text-white px-8 py-3 rounded-lg text-lg hover:bg-[#0e665f] transition"

@@ -1,16 +1,22 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { GraduationCap, LogIn } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -23,11 +29,13 @@ export default function LoginPage() {
     password: "",
   })
 
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
 
-    // Clear error when user types
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: "" }))
     }
@@ -38,7 +46,7 @@ export default function LoginPage() {
     const newErrors = { ...errors }
 
     if (!formData.username.trim()) {
-      newErrors.username = "username is required"
+      newErrors.username = "Username is required"
       valid = false
     }
 
@@ -51,35 +59,35 @@ export default function LoginPage() {
     return valid
   }
 
-  const router = useRouter()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
+    if (!validateForm()) return
 
-  if (!validateForm()) return
+    setLoading(true)
+    const res = await signIn("credentials", {
+      username: formData.username,
+      password: formData.password,
+      redirect: false,
+    })
 
-  const res = await signIn("credentials", {
-    username: formData.username,
-    password: formData.password,
-    redirect: false,
-  })
-
-  if (res?.ok) {
-    router.push("/studentform") 
-  } else {
-    setErrors((prev) => ({
-      ...prev,
-      password: "Invalid credentials",
-    }))
+    if (res?.ok) {
+      router.push("/studentform")
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        password: "Invalid credentials",
+      }))
+    }
+    setLoading(false)
   }
-}
 
   return (
     <div className="container flex min-h-screen flex-col items-center justify-center py-12">
       <div className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 text-center">
         <div className="flex items-center justify-center gap-2">
           <GraduationCap className="h-8 w-8 text-teal-600" />
-          <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl">RankWise</h1>
+          <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl">Guess My College</h1>
         </div>
       </div>
 
@@ -92,7 +100,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           <form onSubmit={handleSubmit}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="username">username</Label>
+                <Label htmlFor="username">Username</Label>
                 <Input
                   id="username"
                   name="username"
@@ -124,8 +132,40 @@ const handleSubmit = async (e: React.FormEvent) => {
               </div>
             </div>
 
-            <Button className="mt-6 w-full bg-teal-600 hover:bg-teal-700" type="submit">
-              <LogIn className="mr-2 h-4 w-4" /> Login
+            <Button
+              className="mt-6 w-full bg-teal-600 hover:bg-teal-700"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <svg
+                    className="animate-spin h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  Logging in...
+                </div>
+              ) : (
+                <>
+                  <LogIn className="mr-2 h-4 w-4" /> Login
+                </>
+              )}
             </Button>
           </form>
         </CardContent>

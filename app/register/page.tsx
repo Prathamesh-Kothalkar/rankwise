@@ -1,15 +1,21 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { GraduationCap, UserPlus } from "lucide-react"
-import { useRouter } from "next/navigation"
 import Footer from "@/components/Footer"
 
 export default function RegisterPage() {
@@ -27,13 +33,13 @@ export default function RegisterPage() {
     confirmPassword: "",
   })
 
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
 
-    // Clear error when user types
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: "" }))
     }
@@ -49,7 +55,7 @@ export default function RegisterPage() {
     }
 
     if (!formData.username.trim()) {
-      newErrors.username = "username is required"
+      newErrors.username = "Username is required"
       valid = false
     }
 
@@ -70,49 +76,44 @@ export default function RegisterPage() {
     return valid
   }
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!validateForm()) return
 
-  if (!validateForm()) return;
+    setLoading(true)
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          username: formData.username,
+          password: formData.password,
+        }),
+      })
 
-  try {
-    const response = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: formData.name,
-        username: formData.username,
-        password: formData.password,
-      }),
-    });
+      const data = await response.json()
+      if (!response.ok) {
+        alert(data.error || "Something went wrong")
+        return
+      }
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      // handle backend errors like 409, 400 etc.
-      alert(data.error || "Something went wrong");
-      return;
+      alert("Signup successful!")
+      router.push("/login")
+    } catch (error) {
+      console.error("Signup error:", error)
+      alert("Something went wrong!")
+    } finally {
+      setLoading(false)
     }
-
-    alert("Signup successful!");
-    router.push("/login"); // Redirect to login page after successful signup
-    // Optionally redirect
-    
-  } catch (error) {
-    console.error("Signup error:", error);
-    alert("Something went wrong!");
   }
-};
-
 
   return (
     <div className="container flex min-h-screen flex-col items-center justify-center py-12">
       <div className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 text-center">
         <div className="flex items-center justify-center gap-2">
           <GraduationCap className="h-8 w-8 text-teal-600" />
-          <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl">RankWise</h1>
+          <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl">Guess My College</h1>
         </div>
       </div>
 
@@ -139,7 +140,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="username">username</Label>
+                <Label htmlFor="username">Username</Label>
                 <Input
                   id="username"
                   name="username"
@@ -178,8 +179,40 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <Button className="mt-6 w-full bg-teal-600 hover:bg-teal-700" type="submit">
-              <UserPlus className="mr-2 h-4 w-4" /> Register
+            <Button
+              className="mt-6 w-full bg-teal-600 hover:bg-teal-700"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <svg
+                    className="animate-spin h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  Signing up...
+                </div>
+              ) : (
+                <>
+                  <UserPlus className="mr-2 h-4 w-4" /> Register
+                </>
+              )}
             </Button>
           </form>
         </CardContent>
@@ -192,7 +225,7 @@ export default function RegisterPage() {
           </p>
         </CardFooter>
       </Card>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

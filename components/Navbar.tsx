@@ -26,15 +26,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold">
-          Rankwise
+          Guess My College
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link href="#how-it-works" className="hover:underline">
+          <Link href="/" className="hover:underline">
             How It Works
           </Link>
-          <Link href="#faq" className="hover:underline">
+          <Link href="/#faq" className="hover:underline">
             FAQ
           </Link>
         
@@ -62,10 +62,10 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden mt-4 space-y-4">
-          <Link href="#how-it-works" className="block hover:underline" onClick={() => setIsOpen(false)}>
+          <Link href="/" className="block hover:underline" onClick={() => setIsOpen(false)}>
             How It Works
           </Link>
-          <Link href="#faq" className="block hover:underline" onClick={() => setIsOpen(false)}>
+          <Link href="/" className="block hover:underline" onClick={() => setIsOpen(false)}>
             FAQ
           </Link>
           {isUserLoggedIn ? (
