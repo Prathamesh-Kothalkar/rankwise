@@ -10,7 +10,7 @@ export default function ContactUsPage() {
         <main className="max-w-2xl mx-auto py-12 px-4 mt-16">
             <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
             <p className="mb-6 text-gray-700">
-                Have questions, feedback, or need support? We're here to help! Reach out to the RankWise team using the details below.
+                Have questions, feedback, or need support? We're here to help! Reach out to the GMC team using the details below.
             </p>
             <section className="mb-8">
                 <h2 className="text-xl font-semibold mb-2">Email</h2>
@@ -71,7 +71,6 @@ export default function ContactUsPage() {
                 </form>
             </section>
         </main>
-        <Footer/>
         </>
     );
 }

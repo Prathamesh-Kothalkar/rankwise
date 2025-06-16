@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Terms & Conditions | Guess My College",
@@ -12,7 +11,7 @@ export default function TermsPage() {
   return (
     <><Navbar/>
     <div className="max-w-4xl mx-auto px-4 py-12 mt-16">
-      <Card className="shadow-xl border border-gray-700 rounded-2xl">
+      <Card className="shadow-xl border border-[#0F766E] rounded-2xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">Terms & Conditions</CardTitle>
         </CardHeader>
@@ -74,7 +73,6 @@ export default function TermsPage() {
         </CardContent>
       </Card>
     </div>
-    <Footer/>
     </>
   )
 }

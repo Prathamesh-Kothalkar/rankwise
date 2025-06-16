@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import AuthProvider from '@/context/AuthProvider'
 import { Analytics } from "@vercel/analytics/next"
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Guess My College',
@@ -47,6 +48,7 @@ export default function RootLayout({
       <Analytics/>
       <AuthProvider>
       <body>{children}</body>
+      <footer><Footer/></footer>
       </AuthProvider>
     </html>
   )

@@ -216,7 +216,6 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
-      <Footer />
     </>
   )
 }

@@ -225,7 +225,6 @@ export default function RegisterPage() {
           </p>
         </CardFooter>
       </Card>
-      <Footer />
     </div>
   )
 }

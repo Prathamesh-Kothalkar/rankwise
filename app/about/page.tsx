@@ -57,7 +57,6 @@ export default function AboutPage() {
         </CardContent>
       </Card>
     </div>
-    <Footer/>
      </>
   )
 }
