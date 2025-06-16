@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import AuthProvider from '@/context/AuthProvider'
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: 'Guess My College',
   description: 'Find your College Through Pastcutoffs',
-  keywords: 'college, cutoffs, past cutoffs, rank wise, college finder',
+  keywords: 'college, cutoffs, past cutoffs, rank wise, college finder, guess my college, mht-cet, engineering colleges, college recommendations, college admission, college search, college finder app, college prediction',
   generator: 'Next.js',
-  applicationName: 'Rank Wise App',
+  applicationName: 'Guess my College',
   authors: [
     {
       name: 'Prathamesh Kothalkar',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     siteName: 'Guess My College',
     images: [
       {
-        url: 'https://www.guessmycollege.in/og.png',
+        url: 'https://www.guessmycollege.in/sampleimg.png',
         width: 1200,
         height: 630,
       },
@@ -43,6 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Analytics/>
       <AuthProvider>
       <body>{children}</body>
       </AuthProvider>

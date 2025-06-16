@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://guessmycollege.in/sitemap.xml

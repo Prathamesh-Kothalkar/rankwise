@@ -28,10 +28,10 @@ export default function HomePage() {
         {/* Text Content */}
         <div className="max-w-xl">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-            Get Your Best College Recommendation for MH-CET
+            Get Your Best College Recommendation for MHT-CET
           </h2>
           <p className="text-lg mb-6 text-gray-700">
-            GMC (Guess My College) uses AI to help you discover the best engineering colleges in Maharashtra based on your MH-CET score.
+            GMC (Guess My College) uses AI to help you discover the best engineering colleges in Maharashtra based on your MHT-CET score.
           </p>
           <Button 
           className="bg-[#0F766E] text-white px-8 py-3 rounded-lg text-lg hover:bg-[#0e665f] transition"
@@ -73,8 +73,8 @@ export  function HowItWorksAndFAQ() {
         <div className="grid md:grid-cols-3 gap-10 text-center">
           {[
             {
-              title: "1. Enter Your MH-CET Score",
-              desc: "Provide your MH-CET score to begin the recommendation process."
+              title: "1. Enter Your MHT-CET Score",
+              desc: "Provide your MHT-CET score to begin the recommendation process."
             },
             {
               title: "2. Get Personalized Matches",
@@ -99,8 +99,8 @@ export  function HowItWorksAndFAQ() {
         <div className="space-y-6 max-w-3xl mx-auto">
           {[
             {
-              question: "Is Rankwise free to use?",
-              answer: "Yes! Rankwise is completely free for students to explore college recommendations."
+              question: "Is Guess My College free to use?",
+              answer: "Yes! GMC is completely free for students to explore college recommendations."
             },
             {
               question: "Which exams does it support?",
