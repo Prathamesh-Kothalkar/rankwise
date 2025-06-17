@@ -35,7 +35,7 @@ export default function Home() {
   const [location, setLocation] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  
+
   const [branchOptions, setBranchOptions] = useState<{ label: string; value: string }[]>([])
   const [locationOptions, setLocationOptions] = useState<string[]>([])
   const [categoryOptions, setCategoryOptions] = useState<string[]>([])
@@ -111,7 +111,10 @@ export default function Home() {
           <CardHeader>
             <CardTitle className="text-2xl">Find Your College</CardTitle>
             <CardDescription>
-              Enter your details to get college recommendations
+              Enter your details to get college recommendations<br></br>
+              <span className="text-sm text-gray-500">
+                Want to see the full cutoff list? Just enter <span className="bg-yellow-100 text-yellow-800 font-medium px-1 rounded">100</span> as your percentile.
+              </span>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -152,7 +155,7 @@ export default function Home() {
                         <SelectValue placeholder="Select your category" />
                       </SelectTrigger>
                       <SelectContent>
-                        {categoryOptions.map((cat,index) => (
+                        {categoryOptions.map((cat, index) => (
                           <SelectItem key={index} value={cat.category}>
                             {cat.category}
                           </SelectItem>
@@ -179,7 +182,7 @@ export default function Home() {
                         <SelectValue placeholder="Select preferred location" />
                       </SelectTrigger>
                       <SelectContent>
-                        {locationOptions.map((loc,index) => (
+                        {locationOptions.map((loc, index) => (
                           <SelectItem key={index} value={loc.location}>
                             {loc.location}
                           </SelectItem>
@@ -215,6 +218,17 @@ export default function Home() {
             )}
           </CardContent>
         </Card>
+      </div>
+      <div className="p-3">
+        <div className="bg-[#0F766E] text-white text-sm md:text-base text-center px-4 py-3 rounded-md shadow-md mt-6">
+          <p>
+            <strong>Less Percentile / No College Found ?</strong> No problem! Get a consultation call at{" "}
+            <a href="tel:9595238661" className="underline hover:text-gray-200">9595444319</a>{" "}
+            or email us at{" "}
+            <a href="mailto:demo@xaz.com" className="underline hover:text-gray-200">guessmycollege@gmail.com</a>.
+            We're here to help!
+          </p>
+        </div>
       </div>
     </>
   )

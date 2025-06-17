@@ -68,7 +68,7 @@ export default function TermsPage() {
           <p>
             For questions regarding these terms, please contact us at:
             <br />
-            📧 <a href="mailto:support@guessmycollege.in" className="text-blue-400 underline">support@guessmycollege.in</a>
+            📧 <a href="mailto:guessmycollege@gmail.com" className="text-blue-400 underline">guessmycollege@gmail.com</a>
           </p>
         </CardContent>
       </Card>

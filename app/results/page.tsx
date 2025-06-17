@@ -228,6 +228,7 @@ export default function ResultsPage() {
           </div>
         </div>
 
+
         <Tabs defaultValue="all">
           <TabsList>
             <TabsTrigger value="all">All Colleges</TabsTrigger>
@@ -257,6 +258,17 @@ export default function ResultsPage() {
             />
           </TabsContent>
         </Tabs>
+        <div className="p-3">
+         <div className="bg-[#0F766E] text-white text-sm md:text-base text-center px-4 py-3 rounded-md shadow-md mt-6">
+          <p>
+            <strong>Less Percentile / No College Found ?</strong> No problem! Get a consultation call at{" "}
+            <a href="tel:9595444319" className="underline hover:text-gray-200">9595444319</a>{" "}
+            or email us at{" "}
+            <a href="mailto:guessmycollege@gmail.com" className="underline hover:text-gray-200">guessmycollege@gmail.com</a>.
+            We're here to help!
+          </p>
+        </div>
+        </div>
       </div>
 
       <Dialog open={aiDialogOpen} onOpenChange={setAiDialogOpen}>

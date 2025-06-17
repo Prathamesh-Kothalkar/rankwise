@@ -86,10 +86,10 @@ export default function PrivacyPage() {
             <br />
             📧{" "}
             <a
-              href="mailto:contact@guessmycollege.in"
+              href="mailto:guessmycollege@gmail.com"
               className="text-blue-400 underline"
             >
-              contact@guessmycollege.in
+              guessmycollege@gmail.com
             </a>
           </p>
         </CardContent>
