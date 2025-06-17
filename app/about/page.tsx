@@ -1,11 +1,8 @@
-import { Metadata } from "next"
+"use client"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Navbar from "@/components/Navbar"
 
-export const metadata: Metadata = {
-  title: "About Us | Guess My College",
-  description: "Learn more about Guess My College and the mission behind the platform.",
-}
 
 export default function AboutPage() {
   return (
