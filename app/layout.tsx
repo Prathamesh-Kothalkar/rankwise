@@ -45,6 +45,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2991036805731287" crossorigin="anonymous"></script>
+        <script defer data-domain="guessmycollege.in" src="https://plausible.io/js/script.js"></script>
+      </head>
       <Analytics/>
       <AuthProvider>
       <body>{children}</body>
