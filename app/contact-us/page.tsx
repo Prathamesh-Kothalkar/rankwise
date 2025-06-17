@@ -4,6 +4,14 @@ import Navbar from "@/components/Navbar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import React from "react"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Contact Us | Guess My College",
+  description:
+    "Have questions or feedback? Contact us at Guess My College. We're here to help!",
+  
+}
 
 export default function ContactUsPage() {
   const [result, setResult] = React.useState("")

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { getSession, signIn } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -24,6 +25,7 @@ import { GraduationCap, Search } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import axios from "axios"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 export default function Home() {
   const router = useRouter()
@@ -35,6 +37,7 @@ export default function Home() {
   const [location, setLocation] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
+  const [userLogin, setUserLogin] = useState(true)
 
   const [branchOptions, setBranchOptions] = useState<{ label: string; value: string }[]>([])
   const [locationOptions, setLocationOptions] = useState<string[]>([])
@@ -74,12 +77,20 @@ export default function Home() {
   }
 
   useEffect(() => {
+    const checkLogin = async () => {
+      const session = await getSession()
+      if (!session) {
+        setUserLogin(false)
+      }
+    }
+
+    checkLogin()
+
     async function fetchData() {
       try {
         const response = await axios.get("/api/users/college-recommendations")
         const { branches, locations, categories } = response.data
 
-        // Map branches into label/value pair for MultiSelect
         const branchOptionsMapped = branches.map((branch: any) => {
           const branchValue = typeof branch === "object" ? branch.branch : branch
           return {
@@ -87,19 +98,17 @@ export default function Home() {
             value: branchValue,
           }
         })
-        let branchOptions = branchOptionsMapped
-        setBranchOptions(branchOptions)
+        setBranchOptions(branchOptionsMapped)
         setLocationOptions(locations)
         setCategoryOptions(categories)
-
       } catch (error) {
         console.error("Error fetching initial data:", error)
       }
     }
+
     fetchData()
   }, [])
 
-  // Helper to avoid hydration warning:
   const isDataLoaded =
     branchOptions.length > 0 && locationOptions.length > 0 && categoryOptions.length > 0
 
@@ -111,14 +120,23 @@ export default function Home() {
           <CardHeader>
             <CardTitle className="text-2xl">Find Your College</CardTitle>
             <CardDescription>
-              Enter your details to get college recommendations<br></br>
+              Enter your details to get college recommendations<br />
               <span className="text-sm text-gray-500">
-                Want to see the full cutoff list? Just enter <span className="bg-yellow-100 text-yellow-800 font-medium px-1 rounded">100</span> as your percentile.
+                Want to see the full cutoff list? Just enter{" "}
+                <span className="bg-yellow-100 text-yellow-800 font-medium px-1 rounded">100</span>{" "}
+                as your percentile.
               </span>
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {isDataLoaded ? (
+            {!userLogin ? (
+              <div className="text-center py-6">
+                <p className="mb-4 text-gray-700 font-medium">Please log in to use this feature.</p>
+                <Button onClick={() => signIn()} className="w-full bg-teal-600 hover:bg-teal-700">
+                  Login to Continue
+                </Button>
+              </div>
+            ) : isDataLoaded ? (
               <form onSubmit={handleSubmit}>
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
@@ -172,7 +190,6 @@ export default function Home() {
                       selected={branches}
                       onChange={setBranches}
                     />
-
                   </div>
 
                   <div className="flex flex-col space-y-1.5">

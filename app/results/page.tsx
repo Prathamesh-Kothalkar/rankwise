@@ -21,9 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import {
-  Button
-} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -77,7 +75,7 @@ type College = {
 export default function ResultsPage() {
   const [colleges, setColleges] = useState<College[]>([])
   const [searchTerm, setSearchTerm] = useState("")
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState<Boolean>(true)
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<Boolean | null>(null)
   const [aiDialogOpen, setAiDialogOpen] = useState<boolean>(false)
   const [aiResponse, setAiResponse] = useState<String>("")
   const [loadingCollegeId, setLoadingCollegeId] = useState<number | null>(null)
@@ -111,9 +109,12 @@ export default function ResultsPage() {
       setIsUserLoggedIn(!!session)
     }
 
-    checkUserLoggedIn()
-    fetchColleges()
-  }, [])
+    checkUserLoggedIn().then(() => {
+      if (isUserLoggedIn) {
+        fetchColleges()
+      }
+    })
+  }, [isUserLoggedIn])
 
   const toggleBookmark = (id: number) => {
     setColleges(
@@ -157,16 +158,17 @@ export default function ResultsPage() {
       XLSXUtils.book_append_sheet(wb, ws, "Colleges")
       XLSXWriteFile(wb, "colleges.csv")
     } else if (format === "pdf") {
-      const doc = new jsPDF()
-      const columns = Object.keys(exportCols[0])
-      const rows = exportCols.map((row) => columns.map((col) => row[col]))
-      doc.autoTable({
-        head: [columns],
-        body: rows,
-        styles: { fontSize: 9 },
-        margin: { top: 20 },
-      })
-      doc.save("colleges.pdf")
+      alert("Sorry! This features still work in progess We'll notify to you once it get Ready, Until you can export into excel")
+      // const doc = new jsPDF()
+      // const columns = Object.keys(exportCols[0])
+      // const rows = exportCols.map((row) => columns.map((col) => row[col]))
+      // doc.autoTable({
+      //   head: [columns],
+      //   body: rows,
+      //   styles: { fontSize: 9 },
+      //   margin: { top: 20 },
+      // })
+      // doc.save("colleges.pdf")
     } else {
       alert(`Exporting ${format} not supported.`)
     }
@@ -180,6 +182,27 @@ export default function ResultsPage() {
   )
 
   const bookmarkedColleges = colleges.filter((college) => college.isBookmarked)
+
+  
+  if (isUserLoggedIn === false) {
+    return (
+      <Dialog open>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Login Required</DialogTitle>
+            <DialogDescription>
+              You must be logged in to view college recommendations and access this page.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Link href="/login">
+              <Button className="w-full bg-teal-600 hover:bg-teal-700">Login Now</Button>
+            </Link>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    )
+  }
 
   return (
     <>
@@ -228,7 +251,6 @@ export default function ResultsPage() {
           </div>
         </div>
 
-
         <Tabs defaultValue="all">
           <TabsList>
             <TabsTrigger value="all">All Colleges</TabsTrigger>
@@ -258,16 +280,17 @@ export default function ResultsPage() {
             />
           </TabsContent>
         </Tabs>
+
         <div className="p-3">
-         <div className="bg-[#0F766E] text-white text-sm md:text-base text-center px-4 py-3 rounded-md shadow-md mt-6">
-          <p>
-            <strong>Less Percentile / No College Found ?</strong> No problem! Get a consultation call at{" "}
-            <a href="tel:9595444319" className="underline hover:text-gray-200">9595444319</a>{" "}
-            or email us at{" "}
-            <a href="mailto:guessmycollege@gmail.com" className="underline hover:text-gray-200">guessmycollege@gmail.com</a>.
-            We're here to help!
-          </p>
-        </div>
+          <div className="bg-[#0F766E] text-white text-sm md:text-base text-center px-4 py-3 rounded-md shadow-md mt-6">
+            <p>
+              <strong>Less Percentile / No College Found ?</strong> No problem! Get a consultation call at{" "}
+              <a href="tel:9595444319" className="underline hover:text-gray-200">9595444319</a>{" "}
+              or email us at{" "}
+              <a href="mailto:guessmycollege@gmail.com" className="underline hover:text-gray-200">guessmycollege@gmail.com</a>.
+              We're here to help!
+            </p>
+          </div>
         </div>
       </div>
 

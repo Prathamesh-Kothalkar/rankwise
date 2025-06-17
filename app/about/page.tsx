@@ -32,7 +32,7 @@ export default function AboutPage() {
             </p>
 
             <p>
-              Built and maintained by <strong>Prathamesh Kothalkar</strong> & Mayuresh Kothalkar students and developers who understand
+              Built and maintained by <strong>Prathamesh Kothalkar</strong> & <strong>Mayuresh Kothalkar</strong> students and developers who understand
               these struggles firsthand  Guess My College is a genuine attempt to ease this journey for others.
             </p>
 
