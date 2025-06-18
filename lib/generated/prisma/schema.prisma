@@ -58,3 +58,11 @@ model BookmarkCollege {
   user      User          @relation(fields: [userId], references: [id])
   college   CollegeCutoff @relation(fields: [collegeId], references: [id])
 }
+
+model UserInfo {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String   @unique
+  email     String   @unique
+  createdAt DateTime @default(now())
+}

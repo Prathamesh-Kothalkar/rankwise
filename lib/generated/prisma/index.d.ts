@@ -33,6 +33,11 @@ export type Profile = $Result.DefaultSelection<Prisma.$ProfilePayload>
  * 
  */
 export type BookmarkCollege = $Result.DefaultSelection<Prisma.$BookmarkCollegePayload>
+/**
+ * Model UserInfo
+ * 
+ */
+export type UserInfo = $Result.DefaultSelection<Prisma.$UserInfoPayload>
 
 /**
  * Enums
@@ -215,6 +220,16 @@ export class PrismaClient<
     * ```
     */
   get bookmarkCollege(): Prisma.BookmarkCollegeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userInfo`: Exposes CRUD operations for the **UserInfo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserInfos
+    * const userInfos = await prisma.userInfo.findMany()
+    * ```
+    */
+  get userInfo(): Prisma.UserInfoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -658,7 +673,8 @@ export namespace Prisma {
     CollegeCutoff: 'CollegeCutoff',
     User: 'User',
     Profile: 'Profile',
-    BookmarkCollege: 'BookmarkCollege'
+    BookmarkCollege: 'BookmarkCollege',
+    UserInfo: 'UserInfo'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -677,7 +693,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "collegeCutoff" | "user" | "profile" | "bookmarkCollege"
+      modelProps: "collegeCutoff" | "user" | "profile" | "bookmarkCollege" | "userInfo"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -977,6 +993,80 @@ export namespace Prisma {
           }
         }
       }
+      UserInfo: {
+        payload: Prisma.$UserInfoPayload<ExtArgs>
+        fields: Prisma.UserInfoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserInfoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserInfoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>
+          }
+          findFirst: {
+            args: Prisma.UserInfoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserInfoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>
+          }
+          findMany: {
+            args: Prisma.UserInfoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>[]
+          }
+          create: {
+            args: Prisma.UserInfoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>
+          }
+          createMany: {
+            args: Prisma.UserInfoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserInfoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>[]
+          }
+          delete: {
+            args: Prisma.UserInfoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>
+          }
+          update: {
+            args: Prisma.UserInfoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserInfoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserInfoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserInfoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserInfoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserInfoPayload>
+          }
+          aggregate: {
+            args: Prisma.UserInfoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserInfo>
+          }
+          groupBy: {
+            args: Prisma.UserInfoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserInfoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserInfoCountArgs<ExtArgs>
+            result: $Utils.Optional<UserInfoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1065,6 +1155,7 @@ export namespace Prisma {
     user?: UserOmit
     profile?: ProfileOmit
     bookmarkCollege?: BookmarkCollegeOmit
+    userInfo?: UserInfoOmit
   }
 
   /* Types for Logging */
@@ -5751,6 +5842,1035 @@ export namespace Prisma {
 
 
   /**
+   * Model UserInfo
+   */
+
+  export type AggregateUserInfo = {
+    _count: UserInfoCountAggregateOutputType | null
+    _avg: UserInfoAvgAggregateOutputType | null
+    _sum: UserInfoSumAggregateOutputType | null
+    _min: UserInfoMinAggregateOutputType | null
+    _max: UserInfoMaxAggregateOutputType | null
+  }
+
+  export type UserInfoAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type UserInfoSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type UserInfoMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    phone: string | null
+    email: string | null
+    createdAt: Date | null
+  }
+
+  export type UserInfoMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    phone: string | null
+    email: string | null
+    createdAt: Date | null
+  }
+
+  export type UserInfoCountAggregateOutputType = {
+    id: number
+    name: number
+    phone: number
+    email: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type UserInfoAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type UserInfoSumAggregateInputType = {
+    id?: true
+  }
+
+  export type UserInfoMinAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    email?: true
+    createdAt?: true
+  }
+
+  export type UserInfoMaxAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    email?: true
+    createdAt?: true
+  }
+
+  export type UserInfoCountAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    email?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type UserInfoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserInfo to aggregate.
+     */
+    where?: UserInfoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserInfos to fetch.
+     */
+    orderBy?: UserInfoOrderByWithRelationInput | UserInfoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserInfoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserInfos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserInfos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserInfos
+    **/
+    _count?: true | UserInfoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserInfoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserInfoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserInfoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserInfoMaxAggregateInputType
+  }
+
+  export type GetUserInfoAggregateType<T extends UserInfoAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserInfo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserInfo[P]>
+      : GetScalarType<T[P], AggregateUserInfo[P]>
+  }
+
+
+
+
+  export type UserInfoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserInfoWhereInput
+    orderBy?: UserInfoOrderByWithAggregationInput | UserInfoOrderByWithAggregationInput[]
+    by: UserInfoScalarFieldEnum[] | UserInfoScalarFieldEnum
+    having?: UserInfoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserInfoCountAggregateInputType | true
+    _avg?: UserInfoAvgAggregateInputType
+    _sum?: UserInfoSumAggregateInputType
+    _min?: UserInfoMinAggregateInputType
+    _max?: UserInfoMaxAggregateInputType
+  }
+
+  export type UserInfoGroupByOutputType = {
+    id: number
+    name: string
+    phone: string
+    email: string
+    createdAt: Date
+    _count: UserInfoCountAggregateOutputType | null
+    _avg: UserInfoAvgAggregateOutputType | null
+    _sum: UserInfoSumAggregateOutputType | null
+    _min: UserInfoMinAggregateOutputType | null
+    _max: UserInfoMaxAggregateOutputType | null
+  }
+
+  type GetUserInfoGroupByPayload<T extends UserInfoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserInfoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserInfoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserInfoGroupByOutputType[P]>
+            : GetScalarType<T[P], UserInfoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserInfoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    email?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["userInfo"]>
+
+  export type UserInfoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    email?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["userInfo"]>
+
+  export type UserInfoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    email?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["userInfo"]>
+
+  export type UserInfoSelectScalar = {
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    email?: boolean
+    createdAt?: boolean
+  }
+
+  export type UserInfoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "phone" | "email" | "createdAt", ExtArgs["result"]["userInfo"]>
+
+  export type $UserInfoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserInfo"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      phone: string
+      email: string
+      createdAt: Date
+    }, ExtArgs["result"]["userInfo"]>
+    composites: {}
+  }
+
+  type UserInfoGetPayload<S extends boolean | null | undefined | UserInfoDefaultArgs> = $Result.GetResult<Prisma.$UserInfoPayload, S>
+
+  type UserInfoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserInfoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserInfoCountAggregateInputType | true
+    }
+
+  export interface UserInfoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserInfo'], meta: { name: 'UserInfo' } }
+    /**
+     * Find zero or one UserInfo that matches the filter.
+     * @param {UserInfoFindUniqueArgs} args - Arguments to find a UserInfo
+     * @example
+     * // Get one UserInfo
+     * const userInfo = await prisma.userInfo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserInfoFindUniqueArgs>(args: SelectSubset<T, UserInfoFindUniqueArgs<ExtArgs>>): Prisma__UserInfoClient<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserInfo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserInfoFindUniqueOrThrowArgs} args - Arguments to find a UserInfo
+     * @example
+     * // Get one UserInfo
+     * const userInfo = await prisma.userInfo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserInfoFindUniqueOrThrowArgs>(args: SelectSubset<T, UserInfoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserInfoClient<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserInfo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserInfoFindFirstArgs} args - Arguments to find a UserInfo
+     * @example
+     * // Get one UserInfo
+     * const userInfo = await prisma.userInfo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserInfoFindFirstArgs>(args?: SelectSubset<T, UserInfoFindFirstArgs<ExtArgs>>): Prisma__UserInfoClient<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserInfo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserInfoFindFirstOrThrowArgs} args - Arguments to find a UserInfo
+     * @example
+     * // Get one UserInfo
+     * const userInfo = await prisma.userInfo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserInfoFindFirstOrThrowArgs>(args?: SelectSubset<T, UserInfoFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserInfoClient<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserInfos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserInfoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserInfos
+     * const userInfos = await prisma.userInfo.findMany()
+     * 
+     * // Get first 10 UserInfos
+     * const userInfos = await prisma.userInfo.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userInfoWithIdOnly = await prisma.userInfo.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserInfoFindManyArgs>(args?: SelectSubset<T, UserInfoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserInfo.
+     * @param {UserInfoCreateArgs} args - Arguments to create a UserInfo.
+     * @example
+     * // Create one UserInfo
+     * const UserInfo = await prisma.userInfo.create({
+     *   data: {
+     *     // ... data to create a UserInfo
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserInfoCreateArgs>(args: SelectSubset<T, UserInfoCreateArgs<ExtArgs>>): Prisma__UserInfoClient<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserInfos.
+     * @param {UserInfoCreateManyArgs} args - Arguments to create many UserInfos.
+     * @example
+     * // Create many UserInfos
+     * const userInfo = await prisma.userInfo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserInfoCreateManyArgs>(args?: SelectSubset<T, UserInfoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserInfos and returns the data saved in the database.
+     * @param {UserInfoCreateManyAndReturnArgs} args - Arguments to create many UserInfos.
+     * @example
+     * // Create many UserInfos
+     * const userInfo = await prisma.userInfo.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserInfos and only return the `id`
+     * const userInfoWithIdOnly = await prisma.userInfo.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserInfoCreateManyAndReturnArgs>(args?: SelectSubset<T, UserInfoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserInfo.
+     * @param {UserInfoDeleteArgs} args - Arguments to delete one UserInfo.
+     * @example
+     * // Delete one UserInfo
+     * const UserInfo = await prisma.userInfo.delete({
+     *   where: {
+     *     // ... filter to delete one UserInfo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserInfoDeleteArgs>(args: SelectSubset<T, UserInfoDeleteArgs<ExtArgs>>): Prisma__UserInfoClient<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserInfo.
+     * @param {UserInfoUpdateArgs} args - Arguments to update one UserInfo.
+     * @example
+     * // Update one UserInfo
+     * const userInfo = await prisma.userInfo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserInfoUpdateArgs>(args: SelectSubset<T, UserInfoUpdateArgs<ExtArgs>>): Prisma__UserInfoClient<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserInfos.
+     * @param {UserInfoDeleteManyArgs} args - Arguments to filter UserInfos to delete.
+     * @example
+     * // Delete a few UserInfos
+     * const { count } = await prisma.userInfo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserInfoDeleteManyArgs>(args?: SelectSubset<T, UserInfoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserInfos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserInfoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserInfos
+     * const userInfo = await prisma.userInfo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserInfoUpdateManyArgs>(args: SelectSubset<T, UserInfoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserInfos and returns the data updated in the database.
+     * @param {UserInfoUpdateManyAndReturnArgs} args - Arguments to update many UserInfos.
+     * @example
+     * // Update many UserInfos
+     * const userInfo = await prisma.userInfo.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserInfos and only return the `id`
+     * const userInfoWithIdOnly = await prisma.userInfo.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserInfoUpdateManyAndReturnArgs>(args: SelectSubset<T, UserInfoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserInfo.
+     * @param {UserInfoUpsertArgs} args - Arguments to update or create a UserInfo.
+     * @example
+     * // Update or create a UserInfo
+     * const userInfo = await prisma.userInfo.upsert({
+     *   create: {
+     *     // ... data to create a UserInfo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserInfo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserInfoUpsertArgs>(args: SelectSubset<T, UserInfoUpsertArgs<ExtArgs>>): Prisma__UserInfoClient<$Result.GetResult<Prisma.$UserInfoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserInfos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserInfoCountArgs} args - Arguments to filter UserInfos to count.
+     * @example
+     * // Count the number of UserInfos
+     * const count = await prisma.userInfo.count({
+     *   where: {
+     *     // ... the filter for the UserInfos we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserInfoCountArgs>(
+      args?: Subset<T, UserInfoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserInfoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserInfo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserInfoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserInfoAggregateArgs>(args: Subset<T, UserInfoAggregateArgs>): Prisma.PrismaPromise<GetUserInfoAggregateType<T>>
+
+    /**
+     * Group by UserInfo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserInfoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserInfoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserInfoGroupByArgs['orderBy'] }
+        : { orderBy?: UserInfoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserInfoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserInfoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserInfo model
+   */
+  readonly fields: UserInfoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserInfo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserInfoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserInfo model
+   */
+  interface UserInfoFieldRefs {
+    readonly id: FieldRef<"UserInfo", 'Int'>
+    readonly name: FieldRef<"UserInfo", 'String'>
+    readonly phone: FieldRef<"UserInfo", 'String'>
+    readonly email: FieldRef<"UserInfo", 'String'>
+    readonly createdAt: FieldRef<"UserInfo", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserInfo findUnique
+   */
+  export type UserInfoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * Filter, which UserInfo to fetch.
+     */
+    where: UserInfoWhereUniqueInput
+  }
+
+  /**
+   * UserInfo findUniqueOrThrow
+   */
+  export type UserInfoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * Filter, which UserInfo to fetch.
+     */
+    where: UserInfoWhereUniqueInput
+  }
+
+  /**
+   * UserInfo findFirst
+   */
+  export type UserInfoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * Filter, which UserInfo to fetch.
+     */
+    where?: UserInfoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserInfos to fetch.
+     */
+    orderBy?: UserInfoOrderByWithRelationInput | UserInfoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserInfos.
+     */
+    cursor?: UserInfoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserInfos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserInfos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserInfos.
+     */
+    distinct?: UserInfoScalarFieldEnum | UserInfoScalarFieldEnum[]
+  }
+
+  /**
+   * UserInfo findFirstOrThrow
+   */
+  export type UserInfoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * Filter, which UserInfo to fetch.
+     */
+    where?: UserInfoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserInfos to fetch.
+     */
+    orderBy?: UserInfoOrderByWithRelationInput | UserInfoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserInfos.
+     */
+    cursor?: UserInfoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserInfos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserInfos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserInfos.
+     */
+    distinct?: UserInfoScalarFieldEnum | UserInfoScalarFieldEnum[]
+  }
+
+  /**
+   * UserInfo findMany
+   */
+  export type UserInfoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * Filter, which UserInfos to fetch.
+     */
+    where?: UserInfoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserInfos to fetch.
+     */
+    orderBy?: UserInfoOrderByWithRelationInput | UserInfoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserInfos.
+     */
+    cursor?: UserInfoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserInfos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserInfos.
+     */
+    skip?: number
+    distinct?: UserInfoScalarFieldEnum | UserInfoScalarFieldEnum[]
+  }
+
+  /**
+   * UserInfo create
+   */
+  export type UserInfoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * The data needed to create a UserInfo.
+     */
+    data: XOR<UserInfoCreateInput, UserInfoUncheckedCreateInput>
+  }
+
+  /**
+   * UserInfo createMany
+   */
+  export type UserInfoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserInfos.
+     */
+    data: UserInfoCreateManyInput | UserInfoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserInfo createManyAndReturn
+   */
+  export type UserInfoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserInfos.
+     */
+    data: UserInfoCreateManyInput | UserInfoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserInfo update
+   */
+  export type UserInfoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * The data needed to update a UserInfo.
+     */
+    data: XOR<UserInfoUpdateInput, UserInfoUncheckedUpdateInput>
+    /**
+     * Choose, which UserInfo to update.
+     */
+    where: UserInfoWhereUniqueInput
+  }
+
+  /**
+   * UserInfo updateMany
+   */
+  export type UserInfoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserInfos.
+     */
+    data: XOR<UserInfoUpdateManyMutationInput, UserInfoUncheckedUpdateManyInput>
+    /**
+     * Filter which UserInfos to update
+     */
+    where?: UserInfoWhereInput
+    /**
+     * Limit how many UserInfos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserInfo updateManyAndReturn
+   */
+  export type UserInfoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * The data used to update UserInfos.
+     */
+    data: XOR<UserInfoUpdateManyMutationInput, UserInfoUncheckedUpdateManyInput>
+    /**
+     * Filter which UserInfos to update
+     */
+    where?: UserInfoWhereInput
+    /**
+     * Limit how many UserInfos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserInfo upsert
+   */
+  export type UserInfoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * The filter to search for the UserInfo to update in case it exists.
+     */
+    where: UserInfoWhereUniqueInput
+    /**
+     * In case the UserInfo found by the `where` argument doesn't exist, create a new UserInfo with this data.
+     */
+    create: XOR<UserInfoCreateInput, UserInfoUncheckedCreateInput>
+    /**
+     * In case the UserInfo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserInfoUpdateInput, UserInfoUncheckedUpdateInput>
+  }
+
+  /**
+   * UserInfo delete
+   */
+  export type UserInfoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+    /**
+     * Filter which UserInfo to delete.
+     */
+    where: UserInfoWhereUniqueInput
+  }
+
+  /**
+   * UserInfo deleteMany
+   */
+  export type UserInfoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserInfos to delete
+     */
+    where?: UserInfoWhereInput
+    /**
+     * Limit how many UserInfos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserInfo without action
+   */
+  export type UserInfoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserInfo
+     */
+    select?: UserInfoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserInfo
+     */
+    omit?: UserInfoOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5813,6 +6933,17 @@ export namespace Prisma {
   };
 
   export type BookmarkCollegeScalarFieldEnum = (typeof BookmarkCollegeScalarFieldEnum)[keyof typeof BookmarkCollegeScalarFieldEnum]
+
+
+  export const UserInfoScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    phone: 'phone',
+    email: 'email',
+    createdAt: 'createdAt'
+  };
+
+  export type UserInfoScalarFieldEnum = (typeof UserInfoScalarFieldEnum)[keyof typeof UserInfoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6186,6 +7317,60 @@ export namespace Prisma {
     collegeId?: IntWithAggregatesFilter<"BookmarkCollege"> | number
   }
 
+  export type UserInfoWhereInput = {
+    AND?: UserInfoWhereInput | UserInfoWhereInput[]
+    OR?: UserInfoWhereInput[]
+    NOT?: UserInfoWhereInput | UserInfoWhereInput[]
+    id?: IntFilter<"UserInfo"> | number
+    name?: StringFilter<"UserInfo"> | string
+    phone?: StringFilter<"UserInfo"> | string
+    email?: StringFilter<"UserInfo"> | string
+    createdAt?: DateTimeFilter<"UserInfo"> | Date | string
+  }
+
+  export type UserInfoOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserInfoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    phone?: string
+    email?: string
+    AND?: UserInfoWhereInput | UserInfoWhereInput[]
+    OR?: UserInfoWhereInput[]
+    NOT?: UserInfoWhereInput | UserInfoWhereInput[]
+    name?: StringFilter<"UserInfo"> | string
+    createdAt?: DateTimeFilter<"UserInfo"> | Date | string
+  }, "id" | "phone" | "email">
+
+  export type UserInfoOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    _count?: UserInfoCountOrderByAggregateInput
+    _avg?: UserInfoAvgOrderByAggregateInput
+    _max?: UserInfoMaxOrderByAggregateInput
+    _min?: UserInfoMinOrderByAggregateInput
+    _sum?: UserInfoSumOrderByAggregateInput
+  }
+
+  export type UserInfoScalarWhereWithAggregatesInput = {
+    AND?: UserInfoScalarWhereWithAggregatesInput | UserInfoScalarWhereWithAggregatesInput[]
+    OR?: UserInfoScalarWhereWithAggregatesInput[]
+    NOT?: UserInfoScalarWhereWithAggregatesInput | UserInfoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"UserInfo"> | number
+    name?: StringWithAggregatesFilter<"UserInfo"> | string
+    phone?: StringWithAggregatesFilter<"UserInfo"> | string
+    email?: StringWithAggregatesFilter<"UserInfo"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"UserInfo"> | Date | string
+  }
+
   export type CollegeCutoffCreateInput = {
     collegeCode: number
     collegeName: string
@@ -6455,6 +7640,59 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     collegeId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserInfoCreateInput = {
+    name: string
+    phone: string
+    email: string
+    createdAt?: Date | string
+  }
+
+  export type UserInfoUncheckedCreateInput = {
+    id?: number
+    name: string
+    phone: string
+    email: string
+    createdAt?: Date | string
+  }
+
+  export type UserInfoUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserInfoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserInfoCreateManyInput = {
+    id?: number
+    name: string
+    phone: string
+    email: string
+    createdAt?: Date | string
+  }
+
+  export type UserInfoUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserInfoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -6812,6 +8050,38 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     collegeId?: SortOrder
+  }
+
+  export type UserInfoCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserInfoAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type UserInfoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserInfoMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserInfoSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type BookmarkCollegeCreateNestedManyWithoutCollegeInput = {

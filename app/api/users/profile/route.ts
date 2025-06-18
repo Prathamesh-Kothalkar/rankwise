@@ -44,7 +44,6 @@ export async function POST(request: Request) {
     }
 
     const requestData = await request.json();
-    console.log("Request Data:", requestData);
     const { firstname, lastname, email, phone, percentile, branches, location } = requestData;
     const parsedPercentile = parseFloat(percentile);
     const user = await prisma.user.findUnique({

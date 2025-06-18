@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { getSession, signIn } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -25,7 +24,7 @@ import { GraduationCap, Search } from "lucide-react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import axios from "axios"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { set } from "react-hook-form"
 
 export default function Home() {
   const router = useRouter()
@@ -36,16 +35,19 @@ export default function Home() {
   const [branches, setBranches] = useState<string[]>([])
   const [location, setLocation] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-
-  const [userLogin, setUserLogin] = useState(true)
+  const [isUserInfoLoading, setIsUserInfoLoading] = useState(false)
 
   const [branchOptions, setBranchOptions] = useState<{ label: string; value: string }[]>([])
   const [locationOptions, setLocationOptions] = useState<string[]>([])
   const [categoryOptions, setCategoryOptions] = useState<string[]>([])
 
+  // User Info States
+  const [showUserInfoForm, setShowUserInfoForm] = useState(false)
+  const [userInfo, setUserInfo] = useState({ name: "", email: "", phone: "" })
+
   const handleSubmit = async (e: React.FormEvent) => {
-    setIsLoading(true)
     e.preventDefault()
+    setIsLoading(true)
 
     const res = await fetch("/api/users/college-recommendations", {
       method: "POST",
@@ -69,23 +71,14 @@ export default function Home() {
         branches: branches.join(","),
       })
       router.push(`/results?${queryParams.toString()}`)
-      setIsLoading(false)
     } else {
-      setIsLoading(false)
       alert(data.error || "Something went wrong")
     }
+
+    setIsLoading(false)
   }
 
   useEffect(() => {
-    const checkLogin = async () => {
-      const session = await getSession()
-      if (!session) {
-        setUserLogin(false)
-      }
-    }
-
-    checkLogin()
-
     async function fetchData() {
       try {
         const response = await axios.get("/api/users/college-recommendations")
@@ -107,6 +100,12 @@ export default function Home() {
     }
 
     fetchData()
+
+    // Show user info form once
+    const hasSubmittedInfo = localStorage.getItem("userInfoSubmitted")
+    if (!hasSubmittedInfo) {
+      setShowUserInfoForm(true)
+    }
   }, [])
 
   const isDataLoaded =
@@ -115,6 +114,71 @@ export default function Home() {
   return (
     <>
       <Navbar />
+
+      {/* User Info Modal */}
+      {showUserInfoForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md space-y-4">
+            <h2 className="text-lg font-semibold">We’d love to know you!</h2>
+            <p className="text-sm text-gray-600">
+              Enter your info to help us personalize recommendations.
+            </p>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault()
+                setIsUserInfoLoading(true)
+                try {
+                  await axios.post("/api/users/info", userInfo)
+                  localStorage.setItem("userInfoSubmitted", "true")
+                  setShowUserInfoForm(false)
+                  setIsUserInfoLoading(false)
+                  alert("User info submitted successfully!")
+                } catch (err) {
+                  alert("Failed to submit info. Try again.")
+                  setIsUserInfoLoading(false)
+                }
+              }}
+              className="space-y-4 p-6"
+            >
+              <Input
+                placeholder="Name"
+                value={userInfo.name}
+                type="text"
+                onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+                required
+              />
+              <Input
+                placeholder="Email"
+                value={userInfo.email}
+                type="email"
+                title="Please enter a valid email address"
+                onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+                required
+              />
+              <Input
+                placeholder="Phone"
+                value={userInfo.phone}
+                type="tel"
+                pattern="[0-9]{10}"
+                title="Please enter a valid 10-digit phone number"
+                onChange={(e) => setUserInfo({ ...userInfo, phone: e.target.value })}
+                required
+              />
+              <div className="flex justify-end space-x-2 mt-4">
+                <Button
+                  type="submit"
+                  className="bg-[#0F766E] text-white hover:bg-[#0F766E]/90"
+                  disabled={isUserInfoLoading}
+                >
+                  {isUserInfoLoading ? "Submitting..." : "Submit"}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      )}
+
       <div className="container flex min-h-screen flex-col items-center justify-center py-12 mt-16">
         <Card className="mx-auto w-full max-w-md transition-all hover:shadow-lg">
           <CardHeader>
@@ -129,14 +193,7 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {!userLogin ? (
-              <div className="text-center py-6">
-                <p className="mb-4 text-gray-700 font-medium">Please log in to use this feature.</p>
-                <Button onClick={() => signIn()} className="w-full bg-teal-600 hover:bg-teal-700">
-                  Login to Continue
-                </Button>
-              </div>
-            ) : isDataLoaded ? (
+            {isDataLoaded ? (
               <form onSubmit={handleSubmit}>
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
@@ -173,7 +230,7 @@ export default function Home() {
                         <SelectValue placeholder="Select your category" />
                       </SelectTrigger>
                       <SelectContent>
-                        {categoryOptions.map((cat, index) => (
+                        {categoryOptions.map((cat: any, index) => (
                           <SelectItem key={index} value={cat.category}>
                             {cat.category}
                           </SelectItem>
@@ -199,7 +256,7 @@ export default function Home() {
                         <SelectValue placeholder="Select preferred location" />
                       </SelectTrigger>
                       <SelectContent>
-                        {locationOptions.map((loc, index) => (
+                        {locationOptions.map((loc: any, index) => (
                           <SelectItem key={index} value={loc.location}>
                             {loc.location}
                           </SelectItem>
@@ -229,21 +286,21 @@ export default function Home() {
                 <div className="h-12 bg-gray-300 rounded"></div>
                 <div className="h-6 bg-gray-300 rounded"></div>
                 <div className="h-12 bg-gray-300 rounded"></div>
-                <div className="h-6 bg-gray-300 rounded"></div>
-                <div className="h-12 bg-gray-300 rounded"></div>
               </div>
             )}
           </CardContent>
         </Card>
       </div>
+
       <div className="p-3">
         <div className="bg-[#0F766E] text-white text-sm md:text-base text-center px-4 py-3 rounded-md shadow-md mt-6">
           <p>
             <strong>Less Percentile / No College Found ?</strong> No problem! Get a consultation call at{" "}
             <a href="tel:9595238661" className="underline hover:text-gray-200">9595444319</a>{" "}
             or email us at{" "}
-            <a href="mailto:demo@xaz.com" className="underline hover:text-gray-200">guessmycollege@gmail.com</a>.
-            We're here to help!
+            <a href="mailto:guessmycollege@gmail.com" className="underline hover:text-gray-200">
+              guessmycollege@gmail.com
+            </a>. We're here to help!
           </p>
         </div>
       </div>

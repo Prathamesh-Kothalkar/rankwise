@@ -76,12 +76,12 @@ export default function ResultsPage() {
   const [colleges, setColleges] = useState<College[]>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<Boolean | null>(null)
-  const [aiDialogOpen, setAiDialogOpen] = useState<boolean>(false)
-  const [aiResponse, setAiResponse] = useState<String>("")
+  const [aiDialogOpen, setAiDialogOpen] = useState(false)
+  const [showLoginDialog, setShowLoginDialog] = useState(false)
+  const [aiResponse, setAiResponse] = useState("")
   const [loadingCollegeId, setLoadingCollegeId] = useState<number | null>(null)
 
   const searchParams = useSearchParams()
-
   const percentile = searchParams.get("percentile")
   const gender = searchParams.get("gender")
   const category = searchParams.get("category")
@@ -89,32 +89,27 @@ export default function ResultsPage() {
   const branches = searchParams.get("branches")?.split(",") || []
 
   useEffect(() => {
-    const fetchColleges = async () => {
-      const response = await axios.post("/api/users/college-recommendations", {
-        percentile,
-        gender,
-        category,
-        location,
-        branches,
-      })
-      const fetchedColleges = response.data.results.map((college: College) => ({
-        ...college,
-        isBookmarked: false,
-      }))
-      setColleges(fetchedColleges)
-    }
-
-    const checkUserLoggedIn = async () => {
+    const checkAndFetch = async () => {
       const session = await getSession()
-      setIsUserLoggedIn(!!session)
-    }
+      const isLoggedIn = !!session
+      setIsUserLoggedIn(isLoggedIn)
 
-    checkUserLoggedIn().then(() => {
-      if (isUserLoggedIn) {
-        fetchColleges()
-      }
-    })
-  }, [isUserLoggedIn])
+      
+        const response = await axios.post("/api/users/college-recommendations", {
+          percentile,
+          gender,
+          category,
+          location,
+          branches,
+        })
+        const fetchedColleges = response.data.results.map((college: College) => ({
+          ...college,
+          isBookmarked: false,
+        }))
+        setColleges(fetchedColleges)
+    }
+    checkAndFetch()
+  }, [])
 
   const toggleBookmark = (id: number) => {
     setColleges(
@@ -128,7 +123,7 @@ export default function ResultsPage() {
 
   const handleGenAi = async (collegeId: number) => {
     if (!isUserLoggedIn) {
-      alert("Please log in to use AI features.")
+      setShowLoginDialog(true)
       return
     }
     try {
@@ -146,7 +141,7 @@ export default function ResultsPage() {
 
   const exportData = (format: string) => {
     if (!isUserLoggedIn) {
-      alert("Please log in to export data.")
+      setShowLoginDialog(true)
       return
     }
 
@@ -158,17 +153,7 @@ export default function ResultsPage() {
       XLSXUtils.book_append_sheet(wb, ws, "Colleges")
       XLSXWriteFile(wb, "colleges.csv")
     } else if (format === "pdf") {
-      alert("Sorry! This features still work in progess We'll notify to you once it get Ready, Until you can export into excel")
-      // const doc = new jsPDF()
-      // const columns = Object.keys(exportCols[0])
-      // const rows = exportCols.map((row) => columns.map((col) => row[col]))
-      // doc.autoTable({
-      //   head: [columns],
-      //   body: rows,
-      //   styles: { fontSize: 9 },
-      //   margin: { top: 20 },
-      // })
-      // doc.save("colleges.pdf")
+      alert("Sorry! This feature is still a work in progress. Please export as Excel in the meantime.")
     } else {
       alert(`Exporting ${format} not supported.`)
     }
@@ -182,27 +167,6 @@ export default function ResultsPage() {
   )
 
   const bookmarkedColleges = colleges.filter((college) => college.isBookmarked)
-
-  
-  if (isUserLoggedIn === false) {
-    return (
-      <Dialog open>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Login Required</DialogTitle>
-            <DialogDescription>
-              You must be logged in to view college recommendations and access this page.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Link href="/login">
-              <Button className="w-full bg-teal-600 hover:bg-teal-700">Login Now</Button>
-            </Link>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    )
-  }
 
   return (
     <>
@@ -284,7 +248,7 @@ export default function ResultsPage() {
         <div className="p-3">
           <div className="bg-[#0F766E] text-white text-sm md:text-base text-center px-4 py-3 rounded-md shadow-md mt-6">
             <p>
-              <strong>Less Percentile / No College Found ?</strong> No problem! Get a consultation call at{" "}
+              <strong>Less Percentile / No College Found?</strong> No problem! Get a consultation call at{" "}
               <a href="tel:9595444319" className="underline hover:text-gray-200">9595444319</a>{" "}
               or email us at{" "}
               <a href="mailto:guessmycollege@gmail.com" className="underline hover:text-gray-200">guessmycollege@gmail.com</a>.
@@ -294,6 +258,7 @@ export default function ResultsPage() {
         </div>
       </div>
 
+      {/* AI Response Dialog */}
       <Dialog open={aiDialogOpen} onOpenChange={setAiDialogOpen}>
         <DialogContent>
           <DialogHeader>
@@ -309,6 +274,23 @@ export default function ResultsPage() {
             <DialogClose asChild>
               <Button variant="outline">Close</Button>
             </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Login Dialog */}
+      <Dialog open={showLoginDialog} onOpenChange={setShowLoginDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Login Required</DialogTitle>
+            <DialogDescription>
+              You must be logged in to use this feature.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Link href="/login">
+              <Button className="w-full bg-teal-600 hover:bg-teal-700">Login Now</Button>
+            </Link>
           </DialogFooter>
         </DialogContent>
       </Dialog>
