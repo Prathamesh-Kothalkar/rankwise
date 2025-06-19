@@ -30,6 +30,8 @@ export default function LoginPage() {
   })
 
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+
   const router = useRouter()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,24 +115,46 @@ export default function LoginPage() {
               </div>
 
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
+                  <Label htmlFor="password">Password</Label>
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter your password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-2 top-2.5 text-gray-500 hover:text-gray-700"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.964 9.964 0 012.555-4.327m1.96-1.61A9.953 9.953 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.965 9.965 0 01-1.249 2.472M15 12a3 3 0 00-3-3m0 0a3 3 0 00-3 3m3-3l6 6" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                  {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
+                </div>
+
                 {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
               </div>
 
               <div className="flex justify-end">
-                <Link href="/forgot-password" className="text-sm font-medium text-teal-600 hover:underline">
+                <Link href="/login" className="text-sm font-medium text-teal-600 hover:underline">
                   Forgot password?
                 </Link>
               </div>
-            </div>
 
             <Button
               className="mt-6 w-full bg-teal-600 hover:bg-teal-700"

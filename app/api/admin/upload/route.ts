@@ -47,9 +47,7 @@ export async function POST(req: Request) {
 
     const jsonData = rawData.map(normalizeKeys);
 
-    console.log("Parsed Data:", jsonData);
-
-    // Insert into DB
+   
     const insertedRecords = await prisma.$transaction(
       jsonData.map((row: any) =>
         prisma.collegeCutoff.create({
@@ -57,9 +55,9 @@ export async function POST(req: Request) {
             collegeCode: Number(row["College Code"]),
             collegeName: row["College Name"],
             status: row["Status"] || null,
-            location: row["Location"] || null,
-            branch: row["Branch"] || "Unknown",
-            category: row["Category"] || "General",
+            location: row["Location"]?.trim() || null,
+            branch: row["Branch"]?.trim() || "Unknown",
+            category: row["Category"]?.trim() || "General",
             gender: row["Gender"] || "Co-ed",
             cutoff: parseFloat(row["Cutoff"]) || 0,
           },
