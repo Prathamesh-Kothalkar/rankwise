@@ -286,7 +286,7 @@ export default function Home() {
         </Card>
 
         {/* SEO Content Section */}
-        <section className="max-w-2xl mx-auto mt-12 text-center px-4">
+        <section className="max-w-2xl mx-auto mt-12 px-4">
           <h2 className="text-xl font-semibold mb-4">Why Choose Guess My College?</h2>
           <p className="text-gray-700 mb-4">
             Guess My College offers students an intelligent platform to discover engineering colleges across Maharashtra

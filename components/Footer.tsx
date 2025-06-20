@@ -11,9 +11,10 @@ export default function Footer() {
       <div className="flex flex-wrap items-center justify-center gap-4">
         <Link href="/about" className="hover:text-black transition">About</Link>
         <Link href="/terms-and-conditions" className="hover:text-black transition">Terms & Conditions</Link>
-         <Link href="/privacy" className="hover:text-black transition">Privacy Policy</Link>
+        <Link href="/privacy" className="hover:text-black transition">Privacy Policy</Link>
         <Link href="/sitemap.xml" className="hover:text-black transition">Sitemap</Link>
-      <Link href="/contact-us" className="hover:text-black transition">Contact</Link>
+        <Link href="/contact-us" className="hover:text-black transition">Contact</Link>
+        <a href="https://www.instagram.com/guess_my_college/#" target="_blank">Instagram</a>
       </div>
     </CardFooter>
   )

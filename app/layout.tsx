@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Guess My College | MHT-CET College Predictor & Cutoff Tool',
-  description: 'Use Guess My College to discover top Maharashtra engineering colleges based on your MHT-CET rank. Accurate cutoff data, fast predictions, and smart filters to help you make the right choice.',
+  description: 'Use AI powered Guess My College to discover top Maharashtra engineering colleges based on your MHT-CET score. Simple, Easy and Free.',
   icons: {
     icon: '/favicon.png',
   },
@@ -70,10 +70,12 @@ export default function RootLayout({
             }
           })
         }} />
+        <meta name="theme-color" content="#000000" />
+        <link rel="icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="theme-color" content="#000000" />
-
 
       </head>
       <Analytics />

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, Search, BarChart, Sparkle } from "lucide-react";
 import React from "react";
+import Link from "next/link";
 
 export default function HomePage() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white text-[#0F766E]">
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-10">
-        <h1 className="text-2xl font-bold">Guess My College</h1>
+        <h2 className="text-2xl font-bold">Guess My College</h2>
         <Button
           onClick={handleRedirect}
           className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-6 py-2 rounded-lg transition-all"
@@ -55,8 +56,8 @@ export default function HomePage() {
       </section>
 
       {/* SEO-Rich Content */}
-      <section className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold mb-6">Welcome to Guess My College</h1>
+      <section className="p-6">
+        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">Welcome to Guess My College</h1>
         <p className="text-lg mb-4 text-gray-700">
           Guess My College is a smart, AI-powered college predictor built for students appearing for the MHT-CET examination in Maharashtra. Whether you're a first-time aspirant or reappearing to improve your score, GMC offers you a personalized and data-driven college prediction system that saves time and increases your chances of admission. Our mission is to make the college admission process less stressful and more transparent for students and parents.
         </p>
@@ -66,6 +67,11 @@ export default function HomePage() {
         <p className="text-lg text-gray-700">
           GMC also helps you visualize your options using clean summaries and exportable results. Thousands of students trust us every year during CAP rounds to plan ahead with clarity. Get started now, and take one step closer to your dream engineering college in Maharashtra!
         </p>
+       <div className="mt-10">
+         <Link href={"/studentform"} className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-8 py-3 rounded-lg text-lg transition-all">
+          Try Guess My College Now
+        </Link>
+       </div>
       </section>
 
       {/* How to Use Section */}
