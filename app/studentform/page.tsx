@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Head from "next/head";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,44 +11,41 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { MultiSelect } from "@/components/multi-select"
-import { GraduationCap, Search } from "lucide-react"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
-import axios from "axios"
-import { set } from "react-hook-form"
+} from "@/components/ui/select";
+import { MultiSelect } from "@/components/multi-select";
+import { Search } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import axios from "axios";
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [percentile, setPercentile] = useState("")
-  const [gender, setGender] = useState("")
-  const [category, setCategory] = useState("")
-  const [branches, setBranches] = useState<string[]>([])
-  const [location, setLocation] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [isUserInfoLoading, setIsUserInfoLoading] = useState(false)
+  const [percentile, setPercentile] = useState("");
+  const [gender, setGender] = useState("");
+  const [category, setCategory] = useState("");
+  const [branches, setBranches] = useState<string[]>([]);
+  const [location, setLocation] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
+  const [branchOptions, setBranchOptions] = useState<{ label: string; value: string }[]>([]);
+  const [locationOptions, setLocationOptions] = useState<string[]>([]);
+  const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
 
-  const [branchOptions, setBranchOptions] = useState<{ label: string; value: string }[]>([])
-  const [locationOptions, setLocationOptions] = useState<string[]>([])
-  const [categoryOptions, setCategoryOptions] = useState<string[]>([])
-
-  // User Info States
-  const [showUserInfoForm, setShowUserInfoForm] = useState(false)
-  const [userInfo, setUserInfo] = useState({ name: "", email: "", phone: "" })
+  const [showUserInfoForm, setShowUserInfoForm] = useState(false);
+  const [userInfo, setUserInfo] = useState({ name: "", email: "", phone: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     const res = await fetch("/api/users/college-recommendations", {
       method: "POST",
@@ -59,9 +57,9 @@ export default function Home() {
         branches,
         location,
       }),
-    })
+    });
 
-    const data = await res.json()
+    const data = await res.json();
     if (res.ok) {
       const queryParams = new URLSearchParams({
         percentile,
@@ -69,53 +67,66 @@ export default function Home() {
         category,
         location,
         branches: branches.join(","),
-      })
-      router.push(`/results?${queryParams.toString()}`)
+      });
+      router.push(`/results?${queryParams.toString()}`);
     } else {
-      alert(data.error || "Something went wrong")
+      alert(data.error || "Something went wrong");
     }
 
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("/api/users/college-recommendations")
-        const { branches, locations, categories } = response.data
+        const response = await axios.get("/api/users/college-recommendations");
+        const { branches, locations, categories } = response.data;
 
         const branchOptionsMapped = branches.map((branch: any) => {
-          const branchValue = typeof branch === "object" ? branch.branch : branch
-          return {
-            label: branchValue,
-            value: branchValue,
-          }
-        })
-        setBranchOptions(branchOptionsMapped)
-        setLocationOptions(locations)
-        setCategoryOptions(categories)
+          const branchValue = typeof branch === "object" ? branch.branch : branch;
+          return { label: branchValue, value: branchValue };
+        });
+        setBranchOptions(branchOptionsMapped);
+        setLocationOptions(locations);
+        setCategoryOptions(categories);
       } catch (error) {
-        console.error("Error fetching initial data:", error)
+        console.error("Error fetching initial data:", error);
       }
     }
 
-    fetchData()
+    fetchData();
 
-    // Show user info form once
-    const hasSubmittedInfo = localStorage.getItem("userInfoSubmitted")
-    if (!hasSubmittedInfo) {
-      setShowUserInfoForm(true)
-    }
-  }, [])
+    const hasSubmittedInfo = localStorage.getItem("userInfoSubmitted");
+    if (!hasSubmittedInfo) setShowUserInfoForm(true);
+  }, []);
 
   const isDataLoaded =
-    branchOptions.length > 0 && locationOptions.length > 0 && categoryOptions.length > 0
+    branchOptions.length > 0 && locationOptions.length > 0 && categoryOptions.length > 0;
 
   return (
     <>
+      <Head>
+        <title>MHT-CET College Predictor | Guess My College</title>
+        <meta
+          name="description"
+          content="Use our MHT-CET College Predictor to find the best engineering colleges in Maharashtra based on your percentile, category, and preferences."
+        />
+        <meta
+          name="keywords"
+          content="MHT-CET, college predictor, engineering admission, cutoff predictor, guess my college, Maharashtra colleges, CAP rounds"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <link rel="icon" href="/favicon.png" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2991036805731287"
+          crossOrigin="anonymous"
+        ></script>
+      </Head>
+
       <Navbar />
 
-      {/* User Info Modal */}
       {showUserInfoForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md space-y-4">
@@ -125,25 +136,24 @@ export default function Home() {
             </p>
             <form
               onSubmit={async (e) => {
-                e.preventDefault()
-                setIsUserInfoLoading(true)
+                e.preventDefault();
+                setIsUserInfoLoading(true);
                 try {
-                  await axios.post("/api/users/info", userInfo)
-                  localStorage.setItem("userInfoSubmitted", "true")
-                  setShowUserInfoForm(false)
-                  setIsUserInfoLoading(false)
-                  alert("User info submitted successfully!")
-                } catch (err) {
-                  alert("Failed to submit info. Try again.")
-                  setIsUserInfoLoading(false)
+                  await axios.post("/api/users/info", userInfo);
+                  localStorage.setItem("userInfoSubmitted", "true");
+                  setShowUserInfoForm(false);
+                  setIsUserInfoLoading(false);
+                  alert("User info submitted successfully!");
+                } catch {
+                  alert("Failed to submit info. Try again.");
+                  setIsUserInfoLoading(false);
                 }
               }}
-              className="space-y-4 p-6"
+              className="space-y-4"
             >
               <Input
                 placeholder="Name"
                 value={userInfo.name}
-                type="text"
                 onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
                 required
               />
@@ -151,7 +161,6 @@ export default function Home() {
                 placeholder="Email"
                 value={userInfo.email}
                 type="email"
-                title="Please enter a valid email address"
                 onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
                 required
               />
@@ -160,43 +169,36 @@ export default function Home() {
                 value={userInfo.phone}
                 type="tel"
                 pattern="[0-9]{10}"
-                title="Please enter a valid 10-digit phone number"
                 onChange={(e) => setUserInfo({ ...userInfo, phone: e.target.value })}
                 required
               />
-              <div className="flex justify-end space-x-2 mt-4">
-                <Button
-                  type="submit"
-                  className="bg-[#0F766E] text-white hover:bg-[#0F766E]/90"
-                  disabled={isUserInfoLoading}
-                >
+              <div className="flex justify-end">
+                <Button type="submit" disabled={isUserInfoLoading} className="bg-[#0F766E] text-white">
                   {isUserInfoLoading ? "Submitting..." : "Submit"}
                 </Button>
               </div>
             </form>
           </div>
         </div>
-
       )}
 
-      <div className="container flex min-h-screen flex-col items-center justify-center py-12 mt-16">
-        <Card className="mx-auto w-full max-w-md transition-all hover:shadow-lg">
+      <main className="container py-16 mt-16">
+        <Card className="mx-auto max-w-md shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl">Find Your College</CardTitle>
             <CardDescription>
-              Enter your details to get college recommendations<br />
+              Enter your details to get personalized college recommendations.
+              <br />
               <span className="text-sm text-gray-500">
-                Want to see the full cutoff list? Just enter{" "}
-                <span className="bg-yellow-100 text-yellow-800 font-medium px-1 rounded">100</span>{" "}
-                as your percentile.
+                Want to see all cutoffs? Enter <strong>100</strong> as your percentile.
               </span>
             </CardDescription>
           </CardHeader>
           <CardContent>
             {isDataLoaded ? (
               <form onSubmit={handleSubmit}>
-                <div className="grid w-full items-center gap-4">
-                  <div className="flex flex-col space-y-1.5">
+                <div className="grid gap-4">
+                  <div>
                     <label htmlFor="percentile">Percentile</label>
                     <Input
                       id="percentile"
@@ -208,12 +210,11 @@ export default function Home() {
                       required
                     />
                   </div>
-
-                  <div className="flex flex-col space-y-1.5">
+                  <div>
                     <label htmlFor="gender">Gender</label>
                     <Select onValueChange={setGender}>
                       <SelectTrigger id="gender">
-                        <SelectValue placeholder="Select your gender" />
+                        <SelectValue placeholder="Select gender" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="Male">Male</SelectItem>
@@ -222,25 +223,23 @@ export default function Home() {
                       </SelectContent>
                     </Select>
                   </div>
-
-                  <div className="flex flex-col space-y-1.5">
+                  <div>
                     <label htmlFor="category">Category</label>
                     <Select onValueChange={setCategory}>
                       <SelectTrigger id="category">
-                        <SelectValue placeholder="Select your category" />
+                        <SelectValue placeholder="Select category" />
                       </SelectTrigger>
                       <SelectContent>
-                        {categoryOptions.map((cat: any, index) => (
-                          <SelectItem key={index} value={cat.category}>
+                        {categoryOptions.map((cat: any, i) => (
+                          <SelectItem key={i} value={cat.category}>
                             {cat.category}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
-
-                  <div className="flex flex-col space-y-1.5">
-                    <label htmlFor="branch">Branch Preference</label>
+                  <div>
+                    <label>Branch Preference</label>
                     <MultiSelect
                       placeholder="Select branches"
                       options={branchOptions}
@@ -248,16 +247,15 @@ export default function Home() {
                       onChange={setBranches}
                     />
                   </div>
-
-                  <div className="flex flex-col space-y-1.5">
+                  <div>
                     <label htmlFor="location">Location</label>
                     <Select onValueChange={setLocation}>
                       <SelectTrigger id="location">
-                        <SelectValue placeholder="Select preferred location" />
+                        <SelectValue placeholder="Select location" />
                       </SelectTrigger>
                       <SelectContent>
-                        {locationOptions.map((loc: any, index) => (
-                          <SelectItem key={index} value={loc.location}>
+                        {locationOptions.map((loc: any, i) => (
+                          <SelectItem key={i} value={loc.location}>
                             {loc.location}
                           </SelectItem>
                         ))}
@@ -279,31 +277,45 @@ export default function Home() {
                 </CardFooter>
               </form>
             ) : (
-              <div className="animate-pulse space-y-4">
-                <div className="h-6 bg-gray-300 rounded"></div>
-                <div className="h-12 bg-gray-300 rounded"></div>
-                <div className="h-6 bg-gray-300 rounded"></div>
-                <div className="h-12 bg-gray-300 rounded"></div>
+              <div className="animate-pulse space-y-3">
                 <div className="h-6 bg-gray-300 rounded"></div>
                 <div className="h-12 bg-gray-300 rounded"></div>
               </div>
             )}
           </CardContent>
         </Card>
-      </div>
 
-      <div className="p-3">
-        <div className="bg-[#0F766E] text-white text-sm md:text-base text-center px-4 py-3 rounded-md shadow-md mt-6">
+        {/* SEO Content Section */}
+        <section className="max-w-2xl mx-auto mt-12 text-center px-4">
+          <h2 className="text-xl font-semibold mb-4">Why Choose Guess My College?</h2>
+          <p className="text-gray-700 mb-4">
+            Guess My College offers students an intelligent platform to discover engineering colleges across Maharashtra
+            based on their MHT-CET percentile. Using real admission data and trends, we help you filter by category,
+            gender, branch, and location for maximum accuracy.
+          </p>
+          <p className="text-gray-700">
+            Whether you're targeting top cities like Pune, Mumbai, or Nagpur, or want to explore beyond, our AI tool
+            gives you the most relevant options instantly. Join thousands of students who trust our prediction engine
+            to find their ideal college fit.
+          </p>
+        </section>
+      </main>
+
+      {/* Support Message */}
+      <div className="p-4">
+        <div className="bg-[#0F766E] text-white text-sm text-center rounded-md shadow p-3">
           <p>
-            <strong>Less Percentile / No College Found ?</strong> No problem! Get a consultation call at{" "}
-            <a href="tel:9595238661" className="underline hover:text-gray-200">9595444319</a>{" "}
-            or email us at{" "}
-            <a href="mailto:guessmycollege@gmail.com" className="underline hover:text-gray-200">
+            <strong>Didn’t find a match?</strong> Contact us for guidance:{" "}
+            <a href="tel:9595444319" className="underline">
+              9595444319
+            </a>{" "}
+            or{" "}
+            <a href="mailto:guessmycollege@gmail.com" className="underline">
               guessmycollege@gmail.com
-            </a>. We're here to help!
+            </a>
           </p>
         </div>
       </div>
     </>
-  )
+  );
 }

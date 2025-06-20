@@ -28,7 +28,6 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 gap-10">
-        {/* Text */}
         <div className="max-w-xl">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
             Get Your Best College Recommendation for MHT-CET
@@ -44,7 +43,6 @@ export default function HomePage() {
           </Button>
         </div>
 
-        {/* Image */}
         <div>
           <Image
             width={500}
@@ -56,10 +54,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How to Use */}
+      {/* SEO-Rich Content */}
+      <section className="max-w-4xl mx-auto px-4 py-16 text-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-6">Welcome to Guess My College</h1>
+        <p className="text-lg mb-4 text-gray-700">
+          Guess My College is a smart, AI-powered college predictor built for students appearing for the MHT-CET examination in Maharashtra. Whether you're a first-time aspirant or reappearing to improve your score, GMC offers you a personalized and data-driven college prediction system that saves time and increases your chances of admission. Our mission is to make the college admission process less stressful and more transparent for students and parents.
+        </p>
+        <p className="text-lg mb-4 text-gray-700">
+          By analyzing past years' cutoffs across multiple engineering colleges, courses, and categories, we match your CET score with colleges where you have the best shot. We support personalized filtering based on category (OBC, SC, ST, OPEN), gender, branch preferences (like Computer, Mechanical, Civil), and desired college locations. Our database is continually updated to reflect the latest changes in cutoff trends, making your predictions more accurate and timely.
+        </p>
+        <p className="text-lg text-gray-700">
+          GMC also helps you visualize your options using clean summaries and exportable results. Thousands of students trust us every year during CAP rounds to plan ahead with clarity. Get started now, and take one step closer to your dream engineering college in Maharashtra!
+        </p>
+      </section>
+
+      {/* How to Use Section */}
       <HowToUse />
 
-      {/* How it Works and FAQ */}
+      {/* How It Works + FAQs */}
       <HowItWorksAndFAQ />
     </div>
   );
@@ -156,7 +168,10 @@ export function HowItWorksAndFAQ() {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">How It Works</h2>
         <div className="grid md:grid-cols-3 gap-10 text-center">
           {howItWorks.map((item, i) => (
-            <Card key={i} className="bg-[#F0FDF9] p-6 rounded-xl shadow-md transition hover:scale-[1.02] hover:shadow-xl">
+            <Card
+              key={i}
+              className="bg-[#F0FDF9] p-6 rounded-xl shadow-md transition hover:scale-[1.02] hover:shadow-xl"
+            >
               <CardContent className="text-xl font-semibold mb-2">{item.title}</CardContent>
               <p className="text-gray-700">{item.desc}</p>
             </Card>

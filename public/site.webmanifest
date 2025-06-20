@@ -1,0 +1,18 @@
+{
+  "name": "Guess My College",
+  "short_name": "GMC",
+  "title": "Guess My College | MHT-CET College Predictor & Cutoff Tool",
+  "description": "Use Guess My College to discover top Maharashtra engineering colleges based on your MHT-CET rank. Accurate cutoff data, fast predictions, and smart filters to help you make the right choice.",
+  "lang": "en-US",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0F766E",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

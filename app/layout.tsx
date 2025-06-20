@@ -5,10 +5,10 @@ import { Analytics } from "@vercel/analytics/next"
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Guess My College',
-  description: 'Find your College Through Pastcutoffs',
-   icons: {
-    icon: '/favicon.png', 
+  title: 'Guess My College | MHT-CET College Predictor & Cutoff Tool',
+  description: 'Use Guess My College to discover top Maharashtra engineering colleges based on your MHT-CET rank. Accurate cutoff data, fast predictions, and smart filters to help you make the right choice.',
+  icons: {
+    icon: '/favicon.png',
   },
   keywords: 'college, cutoffs, past cutoffs, rank wise, college finder, guess my college, mht-cet, engineering colleges, college recommendations, college admission, college search, college finder app, college prediction, college admission predictor, college admission guide, college admission tips, college admission process, college admission requirements, college admission application, college admission essay, college admission interview, college admission statistics, college admission trends, college admission deadlines, college admission counselor, college admission consultant, college admission advice, college admission tips and tricks, college admission process explained, college admission process step by step, college admission process timeline, college admission process for international students, college admission process for transfer students, college admission process for graduate students, college admission process for undergraduate students, college admission process for high school students, college admission process for community college students, maharashtra engineering colleges, mht-cet college finder, mht-cet college recommendations, mht-cet college admission, mht-cet college search, mht-cet college prediction, mht-cet college admission predictor, mht-cet college admission guide, mht-cet college admission tips, mht-cet college admission process, mht-cet college admission requirements, mht-cet college admission application, mht-cet college admission essay, mht-cet college admission interview, mht-cet college admission statistics, mht-cet college admission trends, mht-cet college admission deadlines, mht-cet college admission counselor, mht-cet college admission consultant, mht-cet college admission advice',
   generator: 'Next.js',
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   colorScheme: 'dark',
   themeColor: '#000000',
   openGraph: {
-    title: 'Guess My College',
-    description: 'Find your College Through Pastcutoffs',
+    title: 'Guess My College | Find the Best Colleges for Your MHT-CET Rank',
+    description: 'Instantly find engineering colleges in Maharashtra matching your MHT-CET score. Built for aspirants. Backed by real data.',
     url: 'https://www.guessmycollege.in/',
     siteName: 'Guess My College',
     images: [
@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     ],
     locale: 'en-US',
     type: 'website',
+  },
+  alternates: {
+    canonical: 'https://www.guessmycollege.in',
   },
 }
 
@@ -51,11 +54,32 @@ export default function RootLayout({
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2991036805731287" crossorigin="anonymous"></script>
         <script defer data-domain="guessmycollege.in" src="https://plausible.io/js/script.js"></script>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Guess My College",
+            "url": "https://www.guessmycollege.in",
+            "description": "Find the best engineering colleges in Maharashtra based on your MHT-CET score.",
+            "applicationCategory": "College Finder",
+            "operatingSystem": "All",
+            "creator": {
+              "@type": "Person",
+              "name": "Prathamesh Kothalkar",
+              "url": "https://prathamesh-kothalkar.vercel.app"
+            }
+          })
+        }} />
+        <link rel="manifest" href="/site.webmanifest" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="theme-color" content="#000000" />
+
+
       </head>
-      <Analytics/>
+      <Analytics />
       <AuthProvider>
-      <body>{children}</body>
-      <footer><Footer/></footer>
+        <body>{children}</body>
+        <footer><Footer /></footer>
       </AuthProvider>
     </html>
   )
