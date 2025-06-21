@@ -217,10 +217,18 @@ export default function ResultsPage() {
 
       {/* AI Summary Dialog */}
       <Dialog open={aiDialogOpen} onOpenChange={setAiDialogOpen}>
-        <DialogContent>
-          <DialogHeader><DialogTitle>AI Summary</DialogTitle></DialogHeader>
-          <div className="p-4 text-sm">{aiResponse}</div>
-          <DialogFooter><DialogClose asChild><Button variant="outline">Close</Button></DialogClose></DialogFooter>
+        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-lg w-[90vw]">
+          <DialogHeader>
+            <DialogTitle>AI Summary</DialogTitle>
+          </DialogHeader>
+
+          <div className="p-4 text-sm whitespace-pre-wrap">{aiResponse}</div>
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Close</Button>
+            </DialogClose>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
 
