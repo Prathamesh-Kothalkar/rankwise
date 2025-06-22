@@ -52,6 +52,7 @@ export default function HomePage() {
             alt="AI-powered college suggestion"
             className="w-full max-w-md"
             src="/sampleimg.jpg"
+            loading="eager"
           />
         </div>
       </section>
