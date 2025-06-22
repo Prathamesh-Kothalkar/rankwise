@@ -33,6 +33,7 @@ import Navbar from "@/components/Navbar"
 
 import jsPDF from "jspdf"
 import "jspdf-autotable"
+import EzoicAd from "@/components/EzoicAd"
 
 type College = {
   id: number
@@ -167,6 +168,8 @@ export default function ResultsPage() {
           </DropdownMenu>
         </div>
 
+        <EzoicAd id={120} />
+
         <Input
           placeholder="Search colleges, branches..."
           value={searchTerm}
@@ -204,6 +207,8 @@ export default function ResultsPage() {
           </TabsContent>
         </Tabs>
 
+        <EzoicAd id={118} />
+
         <div className="p-3">
           <div className="bg-[#0F766E] text-white text-center px-4 py-3 rounded-md mt-6 text-sm">
             <p>
@@ -214,6 +219,8 @@ export default function ResultsPage() {
           </div>
         </div>
       </div>
+
+      <EzoicAd id={119} />
 
       {/* AI Summary Dialog */}
       <Dialog open={aiDialogOpen} onOpenChange={setAiDialogOpen}>
@@ -258,6 +265,9 @@ const CollegeTable = ({
     <CardHeader className="pb-0">
       <CardTitle>Colleges</CardTitle>
       <CardDescription>Based on your preferences</CardDescription>
+      
+      
+    
     </CardHeader>
     <CardContent>
       {isLoading ? (
@@ -315,4 +325,5 @@ const CollegeTable = ({
       )}
     </CardContent>
   </Card>
+
 )

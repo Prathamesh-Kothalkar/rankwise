@@ -25,6 +25,7 @@ import { Search } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import axios from "axios";
+import EzoicAd from "@/components/EzoicAd";
 
 export default function Home() {
   const router = useRouter();
@@ -126,7 +127,9 @@ export default function Home() {
       </Head>
 
       <Navbar />
+      <EzoicAd id={120} />
 
+      {/* User Info Form */}
       {showUserInfoForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md space-y-4">
@@ -183,6 +186,7 @@ export default function Home() {
       )}
 
       <main className="container py-16 mt-16">
+
         <Card className="mx-auto max-w-md shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl">Find Your College</CardTitle>
@@ -293,6 +297,7 @@ export default function Home() {
             based on their MHT-CET percentile. Using real admission data and trends, we help you filter by category,
             gender, branch, and location for maximum accuracy.
           </p>
+          <EzoicAd id={118} />
           <p className="text-gray-700">
             Whether you're targeting top cities like Pune, Mumbai, or Nagpur, or want to explore beyond, our AI tool
             gives you the most relevant options instantly. Join thousands of students who trust our prediction engine
@@ -316,6 +321,7 @@ export default function Home() {
           </p>
         </div>
       </div>
+      <EzoicAd id={119} />
     </>
   );
 }

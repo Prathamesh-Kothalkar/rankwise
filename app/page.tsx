@@ -5,9 +5,10 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, Search, BarChart, Sparkle } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import AppInstallButton from "@/components/AppInstallButton";
+import EzoicAd from "@/components/EzoicAd";
 
 export default function HomePage() {
   const router = useRouter();
@@ -57,6 +58,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      <EzoicAd id={120} />
+
+      <EzoicAd id={118} />
+
       {/* SEO-Rich Content */}
       <section className="p-6">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">Welcome to Guess My College</h2>
@@ -86,6 +91,9 @@ export default function HomePage() {
 
       {/* How It Works + FAQs */}
       <HowItWorksAndFAQ />
+      <EzoicAd id={119} />
+
+      {/* Footer */}
     </div>
   );
 }
