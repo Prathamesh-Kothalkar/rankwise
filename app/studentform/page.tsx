@@ -129,6 +129,8 @@ export default function Home() {
       <Navbar />
       <EzoicAd id={120} />
 
+
+
       {/* User Info Form */}
       {showUserInfoForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -137,6 +139,7 @@ export default function Home() {
             <p className="text-sm text-gray-600">
               Enter your info to help us personalize recommendations.
             </p>
+
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
@@ -185,8 +188,12 @@ export default function Home() {
         </div>
       )}
 
-      <main className="container py-16 mt-16">
-
+      <main className="container py-16 mt-10">
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow-sm max-w-3xl mx-auto mb-2">
+          <p className="text-sm text-gray-800">
+            <span className="font-semibold text-yellow-700">Note:</span> Currently showing cutoffs for <span className="font-medium">Other Than Home University</span>. Data for Home University (usually lower) along with remaining data by branch, category, and location will be available soon. <span className="font-semibold text-yellow-700">Stay tuned!</span>
+          </p>
+        </div>
         <Card className="mx-auto max-w-md shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl">Find Your College</CardTitle>

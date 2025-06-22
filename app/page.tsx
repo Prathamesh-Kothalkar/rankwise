@@ -74,7 +74,7 @@ export default function HomePage() {
         <p className="text-lg text-gray-700">
           GMC also helps you visualize your options using clean summaries and exportable results. Thousands of students trust us every year during CAP rounds to plan ahead with clarity. Get started now, and take one step closer to your dream engineering college in Maharashtra!
         </p>
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center">
+        <div className="mt-10 flex flex-col sm:flex-row gap-4">
           <Link
             href="/studentform"
             className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-8 py-3 rounded-lg text-lg transition-all text-center"

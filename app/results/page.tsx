@@ -176,6 +176,11 @@ export default function ResultsPage() {
           onChange={e => setSearchTerm(e.target.value)}
           className="mb-6"
         />
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow-sm max-w-3xl mx-auto mb-2 mt-2">
+          <p className="text-sm text-gray-800">
+            <span className="font-semibold text-yellow-700">Note:</span> Currently showing cutoffs for <span className="font-medium">Other Than Home University</span>. Data for Home University (usually lower) along with detailed breakdowns by branch, category, and location will be available soon. <span className="font-semibold text-yellow-700">Stay tuned!</span>
+          </p>
+        </div>
 
         <Tabs defaultValue="all">
           <TabsList>
@@ -265,9 +270,9 @@ const CollegeTable = ({
     <CardHeader className="pb-0">
       <CardTitle>Colleges</CardTitle>
       <CardDescription>Based on your preferences</CardDescription>
-      
-      
-    
+
+
+
     </CardHeader>
     <CardContent>
       {isLoading ? (
