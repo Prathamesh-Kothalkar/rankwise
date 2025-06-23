@@ -37,6 +37,10 @@ export default function Navbar() {
           <Link href="/contact-us" className="hover:underline">
             Contact Us
           </Link>
+
+          <Link href="/blog" className="hover:underline">
+            Blog
+          </Link>
         
             {isUserLoggedIn ? (
                 <Link href="/profile" className="bg-[#0F766E] text-white px-5 py-2 rounded-lg hover:bg-[#0e665f] transition">
@@ -67,6 +71,9 @@ export default function Navbar() {
           </Link>
           <Link href="/contact-us" className="block hover:underline" onClick={() => setIsOpen(false)}>
             Contact Us
+          </Link>
+          <Link href="/blog" className="block hover:underline" onClick={() => setIsOpen(false)}>
+            Blog
           </Link>
           {isUserLoggedIn ? (
               <div className="">

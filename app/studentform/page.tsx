@@ -107,17 +107,18 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>MHT-CET College Predictor | Guess My College</title>
+        <title>MHT-CET College Predictor Tool | Guess My College (2025)</title>
         <meta
           name="description"
-          content="Use our MHT-CET College Predictor to find the best engineering colleges in Maharashtra based on your percentile, category, and preferences."
+          content="Get accurate MHT-CET college predictions based on your percentile, category, gender, branch & location. Trusted by 400+ students. Try Guess My College now!"
         />
         <meta
           name="keywords"
-          content="MHT-CET, college predictor, engineering admission, cutoff predictor, guess my college, Maharashtra colleges, CAP rounds"
+          content="MHT CET college predictor, engineering college admission, Maharashtra cutoff 2025, guess my college, CAP rounds, AI college recommender"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
         <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.guessmycollege.in/studentform" />
         <link rel="icon" href="/favicon.png" />
         <script
           async
@@ -125,6 +126,7 @@ export default function Home() {
           crossOrigin="anonymous"
         ></script>
       </Head>
+
 
       <Navbar />
       <EzoicAd id={120} />

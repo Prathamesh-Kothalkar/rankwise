@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar"
 export const metadata: Metadata = {
   title: "About Us | Guess My College",
   description: "Learn more about Guess My College and the mission behind the platform.",
+   alternates: {
+    canonical: "https://www.guessmycollege.in/about",
+  },
 }
 
 export default function AboutPage() {

@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import React from "react"
+import Head from "next/head"
 
 
 export default function ContactUsPage() {
@@ -33,6 +34,20 @@ export default function ContactUsPage() {
 
   return (
     <>
+      <Head>
+        <title>Contact Us | Guess My College</title>
+        <meta
+          name="description"
+          content="Have questions or need help with MHT-CET predictions? Contact Guess My College via email, phone, or our easy-to-use contact form."
+        />
+        <meta
+          name="keywords"
+          content="Contact Guess My College, support, help, MHT CET, college admission support, query form, email guessmycollege"
+        />
+        <link rel="canonical" href="https://www.guessmycollege.in/contact-us" />
+        <meta name="robots" content="index, follow" />
+      </Head>
+
       <Navbar />
       <main className="max-w-3xl mx-auto mt-20 px-4 sm:px-6 lg:px-8">
         <Card className="shadow-md">

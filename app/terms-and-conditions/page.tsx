@@ -4,8 +4,12 @@ import Navbar from "@/components/Navbar"
 
 export const metadata: Metadata = {
   title: "Terms & Conditions | Guess My College",
-  description: "Terms and conditions for using the Guess My College application.",
-}
+  description: "Read the official Terms & Conditions for using Guess My College an AI-based MHT-CET predictor platform.",
+  alternates: {
+    canonical: "https://www.guessmycollege.in/terms-and-conditions",
+  },
+};
+
 
 export default function TermsPage() {
   return (

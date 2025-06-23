@@ -52,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2991036805731287" crossorigin="anonymous"></script>
         <script defer data-domain="guessmycollege.in" src="https://plausible.io/js/script.js"></script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{
