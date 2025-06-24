@@ -39,7 +39,7 @@ export default function Navbar() {
           </Link>
 
           <Link href="/blog" className="hover:underline">
-            Blog
+            Blogs
           </Link>
         
             {isUserLoggedIn ? (
@@ -73,7 +73,7 @@ export default function Navbar() {
             Contact Us
           </Link>
           <Link href="/blog" className="block hover:underline" onClick={() => setIsOpen(false)}>
-            Blog
+            Blogs
           </Link>
           {isUserLoggedIn ? (
               <div className="">

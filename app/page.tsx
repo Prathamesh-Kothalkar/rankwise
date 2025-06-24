@@ -19,15 +19,24 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-[#0F766E]">
       {/* Navbar */}
-      <nav className="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-10">
-        <h1 className="text-xl font-bold">Guess My College</h1>
-        <Button
-          onClick={handleRedirect}
-          className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-6 py-2 rounded-lg transition-all"
+         <nav className="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-10">
+      <h1 className="text-xl font-bold">Guess My College</h1>
+      <div className="flex items-center gap-4">
+        <Link
+          href="/blog"
+          className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
         >
-          Try for Free
-        </Button>
-      </nav>
+          Blogs
+        </Link>
+        <button
+          onClick={handleRedirect}
+          className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
+        >
+          Try Now
+        </button>
+      </div>
+    </nav>
+
 
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 gap-10">
@@ -38,12 +47,20 @@ export default function HomePage() {
           <p className="text-lg mb-6 text-gray-700">
             GMC (Guess My College) uses AI to help you discover the best engineering colleges in Maharashtra based on your MHT-CET score.
           </p>
-          <Button
+         <div className="flex gap-4">
+           <Button
             onClick={handleRedirect}
             className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-8 py-3 rounded-lg text-lg transition-all"
           >
-            Try for Free
+            Try Now
           </Button>
+           <Link
+          href="/blog"
+          className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
+        >
+          Blogs
+        </Link>
+         </div>
         </div>
 
         <div>

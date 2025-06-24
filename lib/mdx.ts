@@ -2,6 +2,7 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import { compileMDX } from "next-mdx-remote/rsc";
+import  EzoicAd  from "@/components/EzoicAd"
 
 export interface FrontMatter {
   title: string
@@ -15,7 +16,7 @@ import type { ReactNode } from "react"
 
 export interface BlogPost {
   frontMatter: FrontMatter
-  content: ReactNode // This is already correctly typed as ReactNode
+  content: ReactNode
   slug: string
 }
 
@@ -41,18 +42,21 @@ export async function getPostBySlug(slug: string | undefined): Promise<BlogPost 
   const { data, content } = matter(fileContents);
 
   const compiled = await compileMDX({
-    source: content,
-    options: {
-      parseFrontmatter: false,
-    },
-  });
+  source: content,
+  components: { EzoicAd },
+  options: {
+    parseFrontmatter: false,
+  },
+});
+
+
 
   return {
     frontMatter: {
       ...(data as FrontMatter),
       slug: realSlug,
     },
-    content: compiled.content, // <--- Here's the change: Use compiled.content directly
+    content: compiled.content, 
     slug: realSlug,
   };
 }
