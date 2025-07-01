@@ -14,8 +14,8 @@ An AI-powered college predictor web app for MHT-CET aspirants to find best-fit c
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Package Manager:** pnpm
 - **Backend:** Node.js API routes, Google Search API, Gemini GenAI
-- **Database:** PostgreSQL (hosted on Aiven.io)
-- **Cache**: Redis for caching summaries
+- **Database:** PostgreSQL (hosted on Neon)
+- **Cache**: Redis for caching college summaries
 - **Deployment:** 
    [Vercel](https://vercel.com/)
 
