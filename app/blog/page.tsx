@@ -18,6 +18,7 @@ export default async function BlogIndexPage() {
           content="Latest blog posts about college insights, tips, and experiences."
         />
         <link rel="canonical" href="https://www.guessmycollege.in/blog" />
+        <script type='text/javascript' src='//pl27070925.profitableratecpm.com/62/08/d9/6208d9d2b2ead70c886b98171c7d98b1.js'></script>
       </Head>
 
       <Navbar />

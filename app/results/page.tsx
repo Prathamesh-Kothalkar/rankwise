@@ -143,6 +143,7 @@ export default function ResultsPage() {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2991036805731287"
           crossOrigin="anonymous"
         ></script>
+        <script type='text/javascript' src='//pl27070925.profitableratecpm.com/62/08/d9/6208d9d2b2ead70c886b98171c7d98b1.js'></script>
       </Head>
 
       <Navbar />

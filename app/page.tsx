@@ -22,12 +22,6 @@ export default function HomePage() {
          <nav className="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-10">
       <h1 className="text-xl font-bold">Guess My College</h1>
       <div className="flex items-center gap-4">
-        <Link
-          href="/blog"
-          className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
-        >
-          Blogs
-        </Link>
         <button
           onClick={handleRedirect}
           className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
@@ -159,6 +153,7 @@ export function HowToUse() {
             </Card>
           ))}
         </div>
+        <script type='text/javascript' src='//pl27070923.profitableratecpm.com/e2/38/a4/e238a4c4ba34dfeb572a088579232d26.js'></script>
       </div>
     </section>
   );
