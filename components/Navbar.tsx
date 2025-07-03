@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { getSession } from 'next-auth/react';
+import DirectLink from './Adstera/DirectLink';
 
 
 export default function Navbar() {
@@ -41,6 +42,8 @@ export default function Navbar() {
           <Link href="/blog" className="hover:underline">
             Blogs
           </Link>
+
+          <DirectLink/>
         
             {isUserLoggedIn ? (
                 <Link href="/profile" className="bg-[#0F766E] text-white px-5 py-2 rounded-lg hover:bg-[#0e665f] transition">
@@ -75,6 +78,7 @@ export default function Navbar() {
           <Link href="/blog" className="block hover:underline" onClick={() => setIsOpen(false)}>
             Blogs
           </Link>
+          <DirectLink/>
           {isUserLoggedIn ? (
               <div className="">
                  <Link href="/profile" className="bg-[#0F766E] text-white px-5 py-2 rounded-lg hover:bg-[#0e665f] transition">

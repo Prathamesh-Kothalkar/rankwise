@@ -35,6 +35,13 @@ import jsPDF from "jspdf"
 import "jspdf-autotable"
 import EzoicAd from "@/components/EzoicAd"
 
+import DirectLink from "@/components/Adstera/DirectLink"
+import NativeBanner from "@/components/Adstera/NativeBanner"
+import Banner160x300 from "@/components/Adstera/Banner160x300"
+import Banner468x60 from "@/components/Adstera/Banner468x60"
+import SocialBar from "@/components/Adstera/SocialBar"
+
+// Define the College type
 type College = {
   id: number
   collegeCode: number
@@ -48,6 +55,8 @@ type College = {
   createdAt: string
   isBookmarked: boolean
 }
+
+
 
 export default function ResultsPage() {
   const [colleges, setColleges] = useState<College[]>([])
@@ -144,6 +153,7 @@ export default function ResultsPage() {
           crossOrigin="anonymous"
         ></script>
         <script type='text/javascript' src='//pl27070925.profitableratecpm.com/62/08/d9/6208d9d2b2ead70c886b98171c7d98b1.js'></script>
+        <script type='text/javascript' src='//pl27070923.profitableratecpm.com/e2/38/a4/e238a4c4ba34dfeb572a088579232d26.js'></script>
       </Head>
 
       <Navbar />
@@ -171,6 +181,17 @@ export default function ResultsPage() {
 
         <EzoicAd id={120} />
 
+          <div className="mt-6 flex justify-center">
+          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
+            <NativeBanner />
+          </div>
+        </div>
+
+         <div className="hidden md:flex justify-center mt-8">
+          <Banner160x300 />
+        </div>
+
+
         <Input
           placeholder="Search colleges, branches..."
           value={searchTerm}
@@ -186,6 +207,7 @@ export default function ResultsPage() {
         <Tabs defaultValue="all">
           <TabsList>
             <TabsTrigger value="all">All Colleges</TabsTrigger>
+
             <TabsTrigger value="bookmarked">
               Bookmarked
               {bookmarked.length > 0 && (
@@ -193,6 +215,7 @@ export default function ResultsPage() {
               )}
             </TabsTrigger>
           </TabsList>
+
           <TabsContent value="all">
             <CollegeTable
               colleges={filteredColleges}
@@ -203,6 +226,9 @@ export default function ResultsPage() {
             />
           </TabsContent>
           <TabsContent value="bookmarked">
+            <div className="mt-12 flex justify-center">
+              <Banner160x300 />
+              </div>
             <CollegeTable
               colleges={bookmarked}
               toggleBookmark={toggleBookmark}
@@ -215,6 +241,10 @@ export default function ResultsPage() {
 
         <EzoicAd id={118} />
 
+       <div className="mt-12 flex justify-center">
+          <Banner468x60 />
+        </div>
+
         <div className="p-3">
           <div className="bg-[#0F766E] text-white text-center px-4 py-3 rounded-md mt-6 text-sm">
             <p>
@@ -226,6 +256,11 @@ export default function ResultsPage() {
         </div>
       </div>
 
+      {/* <ResponsiveAd><SocialBar /></ResponsiveAd> */}
+      <SocialBar />
+     <div className="fixed bottom-0 left-0 right-0 z-40 bg-white shadow-md">
+        <DirectLink />
+      </div>
       <EzoicAd id={119} />
 
       {/* AI Summary Dialog */}
@@ -234,9 +269,7 @@ export default function ResultsPage() {
           <DialogHeader>
             <DialogTitle>AI Summary</DialogTitle>
           </DialogHeader>
-
           <div className="p-4 text-sm whitespace-pre-wrap">{aiResponse}</div>
-
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Close</Button>
@@ -271,9 +304,6 @@ const CollegeTable = ({
     <CardHeader className="pb-0">
       <CardTitle>Colleges</CardTitle>
       <CardDescription>Based on your preferences</CardDescription>
-
-
-
     </CardHeader>
     <CardContent>
       {isLoading ? (
@@ -331,5 +361,4 @@ const CollegeTable = ({
       )}
     </CardContent>
   </Card>
-
 )

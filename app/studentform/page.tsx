@@ -26,6 +26,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import axios from "axios";
 import EzoicAd from "@/components/EzoicAd";
+import SocialBar from "@/components/Adstera/SocialBar";
+import DirectLink from "@/components/Adstera/DirectLink";
+import NativeBanner from "@/components/Adstera/NativeBanner";
+import Banner160x300 from "@/components/Adstera/Banner160x300";
+import Banner468x60 from "@/components/Adstera/Banner468x60";
+import Popunder from "@/components/Adstera/Popunder";
 
 export default function Home() {
   const router = useRouter();
@@ -99,6 +105,11 @@ export default function Home() {
 
     const hasSubmittedInfo = localStorage.getItem("userInfoSubmitted");
     if (!hasSubmittedInfo) setShowUserInfoForm(true);
+
+    // Trigger popunder ad on mount
+    if (typeof window !== "undefined") {
+      // Popunder({});
+    }
   }, []);
 
   const isDataLoaded =
@@ -116,7 +127,6 @@ export default function Home() {
           name="keywords"
           content="MHT CET college predictor, engineering college admission, Maharashtra cutoff 2025, guess my college, CAP rounds, AI college recommender"
         />
-        
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.guessmycollege.in/studentform" />
         <link rel="icon" href="/favicon.png" />
@@ -127,13 +137,9 @@ export default function Home() {
         ></script>
       </Head>
 
-
       <Navbar />
       <EzoicAd id={120} />
 
-
-
-      {/* User Info Form */}
       {showUserInfoForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md space-y-4">
@@ -196,6 +202,7 @@ export default function Home() {
             <span className="font-semibold text-yellow-700">Note:</span> Currently showing cutoffs for <span className="font-medium">Other Than Home University</span>. Data for Home University (usually lower) along with remaining data by branch, category, and location will be available soon. <span className="font-semibold text-yellow-700">Stay tuned!</span>
           </p>
         </div>
+
         <Card className="mx-auto max-w-md shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl">Find Your College</CardTitle>
@@ -298,7 +305,19 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        {/* SEO Content Section */}
+        {/* Mid Page Ad */}
+        <div className="mt-6 flex justify-center">
+          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
+            <NativeBanner />
+          </div>
+        </div>
+
+        {/* Right Side Banner for desktop */}
+        <div className="hidden md:flex justify-center mt-8">
+          <Banner160x300 />
+        </div>
+
+        {/* SEO Section */}
         <section className="max-w-2xl mx-auto mt-12 px-4">
           <h2 className="text-xl font-semibold mb-4">Why Choose Guess My College?</h2>
           <p className="text-gray-700 mb-4">
@@ -306,13 +325,23 @@ export default function Home() {
             based on their MHT-CET percentile. Using real admission data and trends, we help you filter by category,
             gender, branch, and location for maximum accuracy.
           </p>
-          <EzoicAd id={118} />
+          <div className="my-6 flex justify-center">
+            <div className="w-full max-w-lg">
+              <EzoicAd id={118} />
+              <SocialBar />
+            </div>
+          </div>
           <p className="text-gray-700">
             Whether you're targeting top cities like Pune, Mumbai, or Nagpur, or want to explore beyond, our AI tool
             gives you the most relevant options instantly. Join thousands of students who trust our prediction engine
             to find their ideal college fit.
           </p>
         </section>
+
+        {/* Bottom Banner */}
+        <div className="mt-12 flex justify-center">
+          <Banner468x60 />
+        </div>
       </main>
 
       {/* Support Message */}
@@ -320,17 +349,18 @@ export default function Home() {
         <div className="bg-[#0F766E] text-white text-sm text-center rounded-md shadow p-3">
           <p>
             <strong>Didn’t find a match?</strong> Contact us for guidance:{" "}
-            <a href="tel:9595444319" className="underline">
-              9595444319
-            </a>{" "}
-            or{" "}
-            <a href="mailto:guessmycollege@gmail.com" className="underline">
-              guessmycollege@gmail.com
-            </a>
+            <a href="tel:9595444319" className="underline">9595444319</a> or{" "}
+            <a href="mailto:guessmycollege@gmail.com" className="underline">guessmycollege@gmail.com</a>
           </p>
         </div>
       </div>
+
       <EzoicAd id={119} />
+
+      {/* Sticky Bottom Ad */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white shadow-md">
+        <DirectLink />
+      </div>
     </>
   );
 }

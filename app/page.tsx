@@ -4,11 +4,14 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, Search, BarChart, Sparkle } from "lucide-react";
+import { GraduationCap, Search, BarChart, Sparkle, Ban } from "lucide-react";
 import React, { useEffect } from "react";
 import Link from "next/link";
 import AppInstallButton from "@/components/AppInstallButton";
 import EzoicAd from "@/components/EzoicAd";
+import DirectLink from "@/components/Adstera/DirectLink";
+import NativeBanner from "@/components/Adstera/NativeBanner";
+import Banner160x300 from "@/components/Adstera/Banner160x300";
 
 export default function HomePage() {
   const router = useRouter();
@@ -70,7 +73,7 @@ export default function HomePage() {
       </section>
 
       <EzoicAd id={120} />
-
+     
       <EzoicAd id={118} />
 
       {/* SEO-Rich Content */}
@@ -96,15 +99,14 @@ export default function HomePage() {
         </div>
 
       </section>
-
+      <NativeBanner/>
       {/* How to Use Section */}
       <HowToUse />
-
+      <DirectLink/>
       {/* How It Works + FAQs */}
       <HowItWorksAndFAQ />
       <EzoicAd id={119} />
-
-      {/* Footer */}
+      <Banner160x300/>
     </div>
   );
 }
