@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import Banner160x300 from "@/components/Adstera/Banner160x300";
+import DirectLink from "@/components/Adstera/DirectLink";
 
 // Replace with your actual site constants
 const SITE_URL = "https://www.guessmycollege.in";
@@ -86,8 +88,12 @@ export default async function BlogPostPage({
           {format(new Date(post.frontMatter.date), "MMMM dd, yyyy")}
         </p>
 
+        <Banner160x300/>
+
         {/* MDX Content */}
         <article className="prose dark:prose-invert">{post.content}</article>
+
+        <DirectLink/>
       </section>
     </>
   );

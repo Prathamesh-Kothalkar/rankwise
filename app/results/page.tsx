@@ -40,6 +40,7 @@ import NativeBanner from "@/components/Adstera/NativeBanner"
 import Banner160x300 from "@/components/Adstera/Banner160x300"
 import Banner468x60 from "@/components/Adstera/Banner468x60"
 import SocialBar from "@/components/Adstera/SocialBar"
+import YoutubeChannelAd from "@/components/UtubeBanner"
 
 // Define the College type
 type College = {
@@ -241,8 +242,13 @@ export default function ResultsPage() {
 
         <EzoicAd id={118} />
 
-       <div className="mt-12 flex justify-center">
-          <Banner468x60 />
+         <div className="px-4">
+          <YoutubeChannelAd
+            channelUrl="https://www.youtube.com/@MHTCETADDA143"
+            videoUrl="https://www.youtube.com/embed/D6IGyc0Kf-o?si=d6dNd_biqZcUKNfR&amp;controls=0"
+            title="Explore Colleges with Us!"
+            description="Subscribe to our channel for tips, college comparisons, and real student experiences."
+          />
         </div>
 
         <div className="p-3">
@@ -257,7 +263,7 @@ export default function ResultsPage() {
       </div>
 
       {/* <ResponsiveAd><SocialBar /></ResponsiveAd> */}
-      <SocialBar />
+      
      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white shadow-md">
         <DirectLink />
       </div>

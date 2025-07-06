@@ -12,6 +12,7 @@ import EzoicAd from "@/components/EzoicAd";
 import DirectLink from "@/components/Adstera/DirectLink";
 import NativeBanner from "@/components/Adstera/NativeBanner";
 import Banner160x300 from "@/components/Adstera/Banner160x300";
+import YoutubeChannelAd from "@/components/UtubeBanner";
 
 export default function HomePage() {
   const router = useRouter();
@@ -22,17 +23,17 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-[#0F766E]">
       {/* Navbar */}
-         <nav className="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-10">
-      <h1 className="text-xl font-bold">Guess My College</h1>
-      <div className="flex items-center gap-4">
-        <button
-          onClick={handleRedirect}
-          className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
-        >
-          Try Now
-        </button>
-      </div>
-    </nav>
+      <nav className="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-10">
+        <h1 className="text-xl font-bold">Guess My College</h1>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleRedirect}
+            className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
+          >
+            Try Now
+          </button>
+        </div>
+      </nav>
 
 
       {/* Hero Section */}
@@ -44,20 +45,20 @@ export default function HomePage() {
           <p className="text-lg mb-6 text-gray-700">
             GMC (Guess My College) uses AI to help you discover the best engineering colleges in Maharashtra based on your MHT-CET score.
           </p>
-         <div className="flex gap-4">
-           <Button
-            onClick={handleRedirect}
-            className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-8 py-3 rounded-lg text-lg transition-all"
-          >
-            Try Now
-          </Button>
-           <Link
-          href="/blog"
-          className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
-        >
-          Blogs
-        </Link>
-         </div>
+          <div className="flex gap-4">
+            <Button
+              onClick={handleRedirect}
+              className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-8 py-3 rounded-lg text-lg transition-all"
+            >
+              Try Now
+            </Button>
+            <Link
+              href="/blog"
+              className="bg-[#0F766E] hover:bg-[#0e665f] text-white px-4 py-2 rounded-lg transition-all"
+            >
+              Blogs
+            </Link>
+          </div>
         </div>
 
         <div>
@@ -73,7 +74,7 @@ export default function HomePage() {
       </section>
 
       <EzoicAd id={120} />
-     
+
       <EzoicAd id={118} />
 
       {/* SEO-Rich Content */}
@@ -82,6 +83,14 @@ export default function HomePage() {
         <p className="text-lg mb-4 text-gray-700">
           Guess My College is a smart, AI-powered college predictor built for students appearing for the MHT-CET examination in Maharashtra. Whether you're a first-time aspirant or reappearing to improve your score, GMC offers you a personalized and data-driven college prediction system that saves time and increases your chances of admission. Our mission is to make the college admission process less stressful and more transparent for students and parents.
         </p>
+        <div className="px-4">
+          <YoutubeChannelAd
+            channelUrl="https://www.youtube.com/@MHTCETADDA143"
+            videoUrl="https://www.youtube.com/embed/D6IGyc0Kf-o?si=d6dNd_biqZcUKNfR&amp;controls=0"
+            title="Explore Colleges with Us!"
+            description="Subscribe to our channel for tips, college comparisons, and real student experiences."
+          />
+        </div>
         <p className="text-lg mb-4 text-gray-700">
           By analyzing past years' cutoffs across multiple engineering colleges, courses, and categories, we match your CET score with colleges where you have the best shot. We support personalized filtering based on category (OBC, SC, ST, OPEN), gender, branch preferences (like Computer, Mechanical, Civil), and desired college locations. Our database is continually updated to reflect the latest changes in cutoff trends, making your predictions more accurate and timely.
         </p>
@@ -99,14 +108,14 @@ export default function HomePage() {
         </div>
 
       </section>
-      <NativeBanner/>
+      <NativeBanner />
       {/* How to Use Section */}
       <HowToUse />
-      <DirectLink/>
+      <DirectLink />
       {/* How It Works + FAQs */}
       <HowItWorksAndFAQ />
       <EzoicAd id={119} />
-      <Banner160x300/>
+      <Banner160x300 />
     </div>
   );
 }

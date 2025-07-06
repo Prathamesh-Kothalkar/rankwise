@@ -32,6 +32,7 @@ import NativeBanner from "@/components/Adstera/NativeBanner";
 import Banner160x300 from "@/components/Adstera/Banner160x300";
 import Banner468x60 from "@/components/Adstera/Banner468x60";
 import Popunder from "@/components/Adstera/Popunder";
+import YoutubeChannelAd from "@/components/UtubeBanner";
 
 export default function Home() {
   const router = useRouter();
@@ -203,6 +204,15 @@ export default function Home() {
           </p>
         </div>
 
+         <div className="px-4">
+          <YoutubeChannelAd
+            channelUrl="https://www.youtube.com/@MHTCETADDA143"
+            videoUrl="https://www.youtube.com/embed/D6IGyc0Kf-o?si=d6dNd_biqZcUKNfR&amp;controls=0"
+            title="Solve Doubts Live – Watch Expert Sessions Now"
+            description="Subscribe to our channel for tips, college comparisons, and real student experiences."
+          />
+          </div>
+
         <Card className="mx-auto max-w-md shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl">Find Your College</CardTitle>
@@ -305,17 +315,7 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        {/* Mid Page Ad */}
-        <div className="mt-6 flex justify-center">
-          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
-            <NativeBanner />
-          </div>
-        </div>
-
-        {/* Right Side Banner for desktop */}
-        <div className="hidden md:flex justify-center mt-8">
-          <Banner160x300 />
-        </div>
+       
 
         {/* SEO Section */}
         <section className="max-w-2xl mx-auto mt-12 px-4">
@@ -331,12 +331,26 @@ export default function Home() {
               <SocialBar />
             </div>
           </div>
+
+           {/* Mid Page Ad */}
+        <div className="mt-6 flex justify-center">
+          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
+            <NativeBanner />
+          </div>
+        </div>
+
+        {/* Right Side Banner for desktop */}
+        <div className="hidden md:flex justify-center mt-8">
+          <Banner160x300 />
+        </div>
           <p className="text-gray-700">
             Whether you're targeting top cities like Pune, Mumbai, or Nagpur, or want to explore beyond, our AI tool
             gives you the most relevant options instantly. Join thousands of students who trust our prediction engine
             to find their ideal college fit.
           </p>
         </section>
+
+
 
         {/* Bottom Banner */}
         <div className="mt-12 flex justify-center">
