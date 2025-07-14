@@ -91,10 +91,10 @@ export default function PrivacyClient() {
               <br />
               📧{" "}
               <a
-                href="mailto:guessmycollege@gmail.com"
+                href="mailto:help@guessmycollege.in"
                 className="text-blue-400 underline"
               >
-                guessmycollege@gmail.com
+               help@guessmycollege.in
               </a>
             </p>
           </CardContent>

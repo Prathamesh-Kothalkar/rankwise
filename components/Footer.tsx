@@ -18,7 +18,7 @@ export default function Footer() {
         <Link href="/privacy" className="hover:text-[#0F766E] transition-colors">Privacy Policy</Link>
         <Link href="/sitemap.xml" className="hover:text-[#0F766E] transition-colors">Sitemap</Link>
         <Link href="/contact-us" className="hover:text-[#0F766E] transition-colors">Contact</Link>
-        <DirectLink/>
+        {/* <DirectLink/> */}
         <a
           href="https://www.instagram.com/guess_my_college/"
           target="_blank"

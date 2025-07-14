@@ -9,10 +9,8 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import AppInstallButton from "@/components/AppInstallButton";
 import EzoicAd from "@/components/EzoicAd";
-import DirectLink from "@/components/Adstera/DirectLink";
-import NativeBanner from "@/components/Adstera/NativeBanner";
-import Banner160x300 from "@/components/Adstera/Banner160x300";
 import YoutubeChannelAd from "@/components/UtubeBanner";
+import PersonalizedPdf from "@/components/PersonalizedPdf";
 
 export default function HomePage() {
   const router = useRouter();
@@ -35,6 +33,10 @@ export default function HomePage() {
         </div>
       </nav>
 
+
+    <div className="p-5">
+        <PersonalizedPdf/>
+      </div>
 
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 gap-10">
@@ -77,6 +79,8 @@ export default function HomePage() {
 
       <EzoicAd id={118} />
 
+      
+
       {/* SEO-Rich Content */}
       <section className="p-6">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">Welcome to Guess My College</h2>
@@ -108,14 +112,10 @@ export default function HomePage() {
         </div>
 
       </section>
-      <NativeBanner />
       {/* How to Use Section */}
       <HowToUse />
-      <DirectLink />
       {/* How It Works + FAQs */}
       <HowItWorksAndFAQ />
-      <EzoicAd id={119} />
-      <Banner160x300 />
     </div>
   );
 }

@@ -3,8 +3,7 @@ import './globals.css'
 import AuthProvider from '@/context/AuthProvider'
 import { Analytics } from "@vercel/analytics/next"
 import Footer from '@/components/Footer'
-import SocialBar from '@/components/Adstera/SocialBar'
-import DirectLink from '@/components/Adstera/DirectLink'
+import ContactButton from '@/components/ContactButton'
 
 export const metadata: Metadata = {
   title: 'Guess My College | MHT-CET College Predictor & Cutoff Tool',
@@ -93,7 +92,8 @@ export default function RootLayout({
       <Analytics />
       <AuthProvider>
         <body>{children}</body>
-        <footer><Footer /></footer>
+        <footer className='mb-10'><Footer /></footer>
+        <ContactButton/>
       </AuthProvider>
     </html>
   )

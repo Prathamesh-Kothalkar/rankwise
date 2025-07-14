@@ -63,10 +63,10 @@ export default function ContactUsPage() {
               <div>
                 <h2 className="text-lg font-semibold mb-1">Email</h2>
                 <a
-                  href="mailto:guessmycollege@gmail.com"
+                  href="mailto:help@guessmycollege.in"
                   className="text-blue-600 hover:underline break-all"
                 >
-                  guessmycollege@gmail.com
+                 help@guessmycollege.in
                 </a>
               </div>
               <div>

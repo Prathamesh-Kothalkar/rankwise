@@ -27,12 +27,8 @@ import Footer from "@/components/Footer";
 import axios from "axios";
 import EzoicAd from "@/components/EzoicAd";
 import SocialBar from "@/components/Adstera/SocialBar";
-import DirectLink from "@/components/Adstera/DirectLink";
-import NativeBanner from "@/components/Adstera/NativeBanner";
-import Banner160x300 from "@/components/Adstera/Banner160x300";
-import Banner468x60 from "@/components/Adstera/Banner468x60";
-import Popunder from "@/components/Adstera/Popunder";
 import YoutubeChannelAd from "@/components/UtubeBanner";
+import PersonalizedPdf from "@/components/PersonalizedPdf";
 
 export default function Home() {
   const router = useRouter();
@@ -108,9 +104,9 @@ export default function Home() {
     if (!hasSubmittedInfo) setShowUserInfoForm(true);
 
     // Trigger popunder ad on mount
-    if (typeof window !== "undefined") {
-      // Popunder({});
-    }
+    // if (typeof window !== "undefined") {
+    //   // Popunder({});
+    // }
   }, []);
 
   const isDataLoaded =
@@ -198,20 +194,18 @@ export default function Home() {
       )}
 
       <main className="container py-16 mt-10">
+        
+        <div className="mb-9">
+          <PersonalizedPdf/>
+        </div>
+        
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow-sm max-w-3xl mx-auto mb-2">
           <p className="text-sm text-gray-800">
             <span className="font-semibold text-yellow-700">Note:</span> Currently showing cutoffs for <span className="font-medium">Other Than Home University</span>. Data for Home University (usually lower) along with remaining data by branch, category, and location will be available soon. <span className="font-semibold text-yellow-700">Stay tuned!</span>
           </p>
         </div>
 
-         <div className="px-4">
-          <YoutubeChannelAd
-            channelUrl="https://www.youtube.com/@MHTCETADDA143"
-            videoUrl="https://www.youtube.com/embed/D6IGyc0Kf-o?si=d6dNd_biqZcUKNfR&amp;controls=0"
-            title="Solve Doubts Live – Watch Expert Sessions Now"
-            description="Subscribe to our channel for tips, college comparisons, and real student experiences."
-          />
-          </div>
+
 
         <Card className="mx-auto max-w-md shadow-lg">
           <CardHeader>
@@ -284,12 +278,12 @@ export default function Home() {
                         <SelectValue placeholder="Select location" />
                       </SelectTrigger>
                       <SelectContent>
+                        <SelectItem value="Any">Any Location</SelectItem>
                         {locationOptions.map((loc: any, i) => (
                           <SelectItem key={i} value={loc.location}>
                             {loc.location}
                           </SelectItem>
                         ))}
-                        <SelectItem value="Any">Any Location</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -316,6 +310,16 @@ export default function Home() {
         </Card>
 
        
+          
+          <div className="px-4">
+          <YoutubeChannelAd
+            channelUrl="https://www.youtube.com/@MHTCETADDA143"
+            videoUrl="https://www.youtube.com/embed/D6IGyc0Kf-o?si=d6dNd_biqZcUKNfR&amp;controls=0"
+            title="Solve Doubts Live – Watch Expert Sessions Now"
+            description="Subscribe to our channel for tips, college comparisons, and real student experiences."
+          />
+          </div>
+       
 
         {/* SEO Section */}
         <section className="max-w-2xl mx-auto mt-12 px-4">
@@ -332,30 +336,13 @@ export default function Home() {
             </div>
           </div>
 
-           {/* Mid Page Ad */}
-        <div className="mt-6 flex justify-center">
-          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
-            <NativeBanner />
-          </div>
-        </div>
-
-        {/* Right Side Banner for desktop */}
-        <div className="hidden md:flex justify-center mt-8">
-          <Banner160x300 />
-        </div>
+          
           <p className="text-gray-700">
             Whether you're targeting top cities like Pune, Mumbai, or Nagpur, or want to explore beyond, our AI tool
             gives you the most relevant options instantly. Join thousands of students who trust our prediction engine
             to find their ideal college fit.
           </p>
         </section>
-
-
-
-        {/* Bottom Banner */}
-        <div className="mt-12 flex justify-center">
-          <Banner468x60 />
-        </div>
       </main>
 
       {/* Support Message */}
@@ -364,17 +351,12 @@ export default function Home() {
           <p>
             <strong>Didn’t find a match?</strong> Contact us for guidance:{" "}
             <a href="tel:9595444319" className="underline">9595444319</a> or{" "}
-            <a href="mailto:guessmycollege@gmail.com" className="underline">guessmycollege@gmail.com</a>
+            <a href="mailto:help@guessmycollege.in" className="underline">help@guessmycollege.in</a>
           </p>
         </div>
       </div>
 
       <EzoicAd id={119} />
-
-      {/* Sticky Bottom Ad */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white shadow-md">
-        <DirectLink />
-      </div>
     </>
   );
 }

@@ -43,7 +43,7 @@ export default function Navbar() {
             Blogs
           </Link>
 
-          <DirectLink/>
+          {/* <DirectLink/> */}
         
             {isUserLoggedIn ? (
                 <Link href="/profile" className="bg-[#0F766E] text-white px-5 py-2 rounded-lg hover:bg-[#0e665f] transition">
@@ -78,7 +78,7 @@ export default function Navbar() {
           <Link href="/blog" className="block hover:underline" onClick={() => setIsOpen(false)}>
             Blogs
           </Link>
-          <DirectLink/>
+          {/* <DirectLink/> */}
           {isUserLoggedIn ? (
               <div className="">
                  <Link href="/profile" className="bg-[#0F766E] text-white px-5 py-2 rounded-lg hover:bg-[#0e665f] transition">

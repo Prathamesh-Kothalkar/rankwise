@@ -1,5 +1,3 @@
-
-
 // lib/genaiCollegeSummary.ts
 import { getGeminiModel } from './genaiClient';
 import { searchCollegeInfo } from './searchCollegeInfo';
@@ -11,9 +9,9 @@ interface SearchResultItem {
 }
 
 export async function generateRealCollegeSummary(collegeName: string, branch: string) {
-   
+
     const query = `${collegeName} ${branch} placements, fees, recruiters`;
-    
+
     const searchResults: SearchResultItem[] = await searchCollegeInfo(query);
 
     const combinedText = searchResults.map((item: SearchResultItem) => `${item.title}\n${item.snippet}\n${item.link}`).join('\n\n');
@@ -23,7 +21,7 @@ export async function generateRealCollegeSummary(collegeName: string, branch: st
     const model = getGeminiModel('gemini-1.5-flash');
 
     const prompt = `
-You are an AI assistant helping students decide on colleges.
+        You are an AI assistant helping students decide on colleges.
 
 Using the following search results, write a friendly, concise summary of "${collegeName}" for the ${branch} branch. Highlight:
 - Placement record

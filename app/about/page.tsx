@@ -58,8 +58,8 @@ export default function AboutPage() {
               We'd love to hear from you! Whether it’s a suggestion, question, or collaboration idea — we’re just an email away:
               <br />
               📧{" "}
-              <a href="mailto:guessmycollege@gmail.com" className="text-blue-500 underline">
-                guessmycollege@gmail.com
+              <a href="mailto:help@guessmycollege.in" className="text-blue-500 underline">
+                help@guessmycollege.in
               </a>
             </p>
           </CardContent>

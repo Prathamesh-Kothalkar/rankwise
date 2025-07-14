@@ -34,13 +34,8 @@ import Navbar from "@/components/Navbar"
 import jsPDF from "jspdf"
 import "jspdf-autotable"
 import EzoicAd from "@/components/EzoicAd"
-
-import DirectLink from "@/components/Adstera/DirectLink"
-import NativeBanner from "@/components/Adstera/NativeBanner"
-import Banner160x300 from "@/components/Adstera/Banner160x300"
-import Banner468x60 from "@/components/Adstera/Banner468x60"
-import SocialBar from "@/components/Adstera/SocialBar"
 import YoutubeChannelAd from "@/components/UtubeBanner"
+import PersonalizedPdf from "@/components/PersonalizedPdf"
 
 // Define the College type
 type College = {
@@ -153,13 +148,16 @@ export default function ResultsPage() {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2991036805731287"
           crossOrigin="anonymous"
         ></script>
-        <script type='text/javascript' src='//pl27070925.profitableratecpm.com/62/08/d9/6208d9d2b2ead70c886b98171c7d98b1.js'></script>
-        <script type='text/javascript' src='//pl27070923.profitableratecpm.com/e2/38/a4/e238a4c4ba34dfeb572a088579232d26.js'></script>
+        {/* <script type='text/javascript' src='//pl27070925.profitableratecpm.com/62/08/d9/6208d9d2b2ead70c886b98171c7d98b1.js'></script> */}
+        {/* <script type='text/javascript' src='//pl27070923.profitableratecpm.com/e2/38/a4/e238a4c4ba34dfeb572a088579232d26.js'></script> */}
       </Head>
 
       <Navbar />
 
       <div className="p-3 mt-16">
+        <div className="mb-9 p-5">
+                <PersonalizedPdf/>
+              </div>
         <div className="flex justify-between items-center mb-4">
           <div className="flex gap-2 items-center">
             <Link href="/studentform"><Button variant="outline"><ArrowLeft className="h-4 w-4" /></Button></Link>
@@ -180,17 +178,6 @@ export default function ResultsPage() {
           </DropdownMenu>
         </div>
 
-        <EzoicAd id={120} />
-
-          <div className="mt-6 flex justify-center">
-          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg">
-            <NativeBanner />
-          </div>
-        </div>
-
-         <div className="hidden md:flex justify-center mt-8">
-          <Banner160x300 />
-        </div>
 
 
         <Input
@@ -227,9 +214,6 @@ export default function ResultsPage() {
             />
           </TabsContent>
           <TabsContent value="bookmarked">
-            <div className="mt-12 flex justify-center">
-              <Banner160x300 />
-              </div>
             <CollegeTable
               colleges={bookmarked}
               toggleBookmark={toggleBookmark}
@@ -256,7 +240,7 @@ export default function ResultsPage() {
             <p>
               <strong>No college found?</strong> Call us at{" "}
               <a href="tel:9595444319" className="underline hover:text-gray-200">9595444319</a>{" "}
-              or email <a href="mailto:guessmycollege@gmail.com" className="underline hover:text-gray-200">guessmycollege@gmail.com</a>
+              or email <a href="mailto:help@guessmycollege.in" className="underline hover:text-gray-200">help@guessmycollege.in</a>
             </p>
           </div>
         </div>
@@ -264,10 +248,6 @@ export default function ResultsPage() {
 
       {/* <ResponsiveAd><SocialBar /></ResponsiveAd> */}
       
-     <div className="fixed bottom-0 left-0 right-0 z-40 bg-white shadow-md">
-        <DirectLink />
-      </div>
-      <EzoicAd id={119} />
 
       {/* AI Summary Dialog */}
       <Dialog open={aiDialogOpen} onOpenChange={setAiDialogOpen}>
