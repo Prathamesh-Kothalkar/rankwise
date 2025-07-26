@@ -15,7 +15,7 @@ export default function PersonalizedPdf() {
           <p className="text-sm sm:text-base font-semibold text-purple-200 mb-1">Exclusive Offer!</p>
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
             <span className="block">Get Your Customized College List</span>
-            <span className="block mt-1 sm:inline-block">@ just <span className="text-yellow-300">₹99</span>!</span>
+            <span className="block mt-1 sm:inline-block">@ just <span className="text-yellow-300">₹299</span>!</span>
           </h2>
         </div>
         <div className="flex-shrink-0">
