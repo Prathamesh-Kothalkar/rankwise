@@ -25,8 +25,6 @@ import { Search } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import axios from "axios";
-import EzoicAd from "@/components/EzoicAd";
-import SocialBar from "@/components/Adstera/SocialBar";
 import YoutubeChannelAd from "@/components/UtubeBanner";
 import PersonalizedPdf from "@/components/PersonalizedPdf";
 
@@ -135,7 +133,7 @@ export default function Home() {
       </Head>
 
       <Navbar />
-      <EzoicAd id={120} />
+     
 
       {showUserInfoForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -329,12 +327,7 @@ export default function Home() {
             based on their MHT-CET percentile. Using real admission data and trends, we help you filter by category,
             gender, branch, and location for maximum accuracy.
           </p>
-          <div className="my-6 flex justify-center">
-            <div className="w-full max-w-lg">
-              <EzoicAd id={118} />
-              <SocialBar />
-            </div>
-          </div>
+         
 
           
           <p className="text-gray-700">
@@ -355,8 +348,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-
-      <EzoicAd id={119} />
     </>
   );
 }

@@ -11,6 +11,7 @@ import AppInstallButton from "@/components/AppInstallButton";
 import EzoicAd from "@/components/EzoicAd";
 import YoutubeChannelAd from "@/components/UtubeBanner";
 import PersonalizedPdf from "@/components/PersonalizedPdf";
+import ModelUpdateModal from "@/components/ModelUpdate";
 
 export default function HomePage() {
   const router = useRouter();
@@ -36,7 +37,10 @@ export default function HomePage() {
 
     <div className="p-5">
         <PersonalizedPdf/>
-      </div>
+    </div>
+
+
+    <ModelUpdateModal/>
 
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 gap-10">
