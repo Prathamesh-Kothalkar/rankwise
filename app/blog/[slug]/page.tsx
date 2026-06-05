@@ -87,12 +87,12 @@ export default async function BlogPostPage({
           {format(new Date(post.frontMatter.date), "MMMM dd, yyyy")}
         </p>
 
-        <Banner160x300/>
+       
 
         {/* MDX Content */}
         <article className="prose dark:prose-invert">{post.content}</article>
 
-        <DirectLink/>
+      
       </section>
     </>
   );
