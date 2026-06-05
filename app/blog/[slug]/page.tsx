@@ -3,7 +3,7 @@
 import { getPostBySlug } from "@/lib/mdx";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
-import type { Metadata } from "nextpnpm add next-mdx-remote@latest";
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 
 
