@@ -3,10 +3,9 @@
 import { getPostBySlug } from "@/lib/mdx";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
+import type { Metadata } from "nextpnpm add next-mdx-remote@latest";
 import Navbar from "@/components/Navbar";
-import Banner160x300 from "@/components/Adstera/Banner160x300";
-import DirectLink from "@/components/Adstera/DirectLink";
+
 
 // Replace with your actual site constants
 const SITE_URL = "https://www.guessmycollege.in";
