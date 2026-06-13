@@ -25,7 +25,8 @@ export default function ContactButton() {
             {/* Fixed Footer Section */}
             <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 shadow-md px-4 py-3 flex flex-col sm:flex-row items-center justify-between z-50">
                 <p className="text-sm sm:text-base font-medium text-gray-800 mb-2 sm:mb-0">
-                    Get a Personalized list of Colleges based on your CET Rank
+                    {/* Get a Personalized list of Colleges based on your CET Rank */}
+                    Need Consultation? Contact our counselors for personalized college recommendations and admission guidance.
                 </p>
 
                 <div className="flex gap-2">
@@ -35,8 +36,14 @@ export default function ContactButton() {
                         </Button>
                     </a>
 
+                    <a href="mailto:contact@guessmycollege.com">
+                        <Button className="bg-[#0E665F] hover:bg-[#0E665F] text-white">
+                            Email Us
+                        </Button>
+                    </a>
 
-                    <Dialog>
+
+                    {/* <Dialog>
                         <DialogTrigger asChild>
                             <Button variant="outline" className="border-[#0E665F] text-[#0E665F] hover:bg-[#0E665F] hover:text-white">
                                 Call Request
@@ -65,7 +72,7 @@ export default function ContactButton() {
                                 </Button>
                             </form>
                         </DialogContent>
-                    </Dialog>
+                    </Dialog> */}
                 </div>
             </div>
         </>

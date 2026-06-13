@@ -8,10 +8,7 @@ import { GraduationCap, Search, BarChart, Sparkle, Ban } from "lucide-react";
 import React, { useEffect } from "react";
 import Link from "next/link";
 import AppInstallButton from "@/components/AppInstallButton";
-import EzoicAd from "@/components/EzoicAd";
-import YoutubeChannelAd from "@/components/UtubeBanner";
-import PersonalizedPdf from "@/components/PersonalizedPdf";
-import ModelUpdateModal from "@/components/ModelUpdate";
+
 import MhtCetResultBanner from "@/components/MhtCetResultBanner";
 
 export default function HomePage() {
