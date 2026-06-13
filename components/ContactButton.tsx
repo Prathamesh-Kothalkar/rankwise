@@ -36,7 +36,7 @@ export default function ContactButton() {
                         </Button>
                     </a>
 
-                    <a href="mailto:contact@guessmycollege.com">
+                    <a href="mailto:contact@guessmycollege.in">
                         <Button className="bg-[#0E665F] hover:bg-[#0E665F] text-white">
                             Email Us
                         </Button>
