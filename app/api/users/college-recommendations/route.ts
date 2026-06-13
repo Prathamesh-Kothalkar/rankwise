@@ -9,14 +9,25 @@ export async function POST(req: Request) {
     const { percentile, gender, category, branches, location } = body
     const validPercentile = !isNaN(percentile) && percentile >= 0 && percentile <= 100;
     const floatPercentile = parseFloat(percentile);
-   
+
 
     const filters: any = {
-      cutoff: { lte: floatPercentile },
-      gender,
-      category,
+  cutoff: { lte: floatPercentile },
+  AND: [
+    {
+      OR: [
+        { gender: gender },
+        { gender: "BOTH" }
+      ]
+    },
+    {
+      OR: [
+        { category: category },
+        { category: "TFWS" }
+      ]
     }
-
+  ]
+};
     if (branches && branches.length > 0) {
       filters.branch = { in: branches }
     }
@@ -38,8 +49,8 @@ export async function POST(req: Request) {
 }
 
 
-export async function GET(){
-  try{
+export async function GET() {
+  try {
     //ALL BRANCHES
     const branches = await prisma.collegeCutoff.findMany({
       distinct: ['branch'],
@@ -60,7 +71,7 @@ export async function GET(){
     })
     return NextResponse.json({ branches, locations, categories })
   }
-  catch(error){
+  catch (error) {
     console.error("Error fetching college recommendations:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }

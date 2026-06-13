@@ -27,6 +27,7 @@ import Footer from "@/components/Footer";
 import axios from "axios";
 import YoutubeChannelAd from "@/components/UtubeBanner";
 import PersonalizedPdf from "@/components/PersonalizedPdf";
+import ModelUpdateModal from "@/components/ModelUpdate";
 
 export default function Home() {
   const router = useRouter();
@@ -98,7 +99,7 @@ export default function Home() {
 
     fetchData();
 
-    const hasSubmittedInfo = localStorage.getItem("userInfoSubmitted");
+    const hasSubmittedInfo = localStorage.getItem("userInfo2026Submitted");
     if (!hasSubmittedInfo) setShowUserInfoForm(true);
 
     // Trigger popunder ad on mount
@@ -133,7 +134,8 @@ export default function Home() {
       </Head>
 
       <Navbar />
-     
+
+      {/* <ModelUpdateModal/> */}
 
       {showUserInfoForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -149,7 +151,7 @@ export default function Home() {
                 setIsUserInfoLoading(true);
                 try {
                   await axios.post("/api/users/info", userInfo);
-                  localStorage.setItem("userInfoSubmitted", "true");
+                  localStorage.setItem("userInfo2026Submitted", "true");
                   setShowUserInfoForm(false);
                   setIsUserInfoLoading(false);
                   alert("User info submitted successfully!");
@@ -193,9 +195,9 @@ export default function Home() {
 
       <main className="container py-16 mt-10">
         
-        <div className="mb-9">
+        {/* <div className="mb-9">
           <PersonalizedPdf/>
-        </div>
+        </div> */}
         
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow-sm max-w-3xl mx-auto mb-2">
           <p className="text-sm text-gray-800">

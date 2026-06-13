@@ -35,12 +35,12 @@ export default function HomePage() {
       </nav>
 
 
-    <div className="p-5">
+    {/* <div className="p-5">
         <PersonalizedPdf/>
-    </div>
+    </div> */}
 
 
-    <ModelUpdateModal/>
+    {/* <ModelUpdateModal/> */}
 
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 gap-10">
@@ -91,14 +91,14 @@ export default function HomePage() {
         <p className="text-lg mb-4 text-gray-700">
           Guess My College is a smart, AI-powered college predictor built for students appearing for the MHT-CET examination in Maharashtra. Whether you're a first-time aspirant or reappearing to improve your score, GMC offers you a personalized and data-driven college prediction system that saves time and increases your chances of admission. Our mission is to make the college admission process less stressful and more transparent for students and parents.
         </p>
-        <div className="px-4">
+        {/* <div className="px-4">
           <YoutubeChannelAd
             channelUrl="https://www.youtube.com/@MHTCETADDA143"
             videoUrl="https://www.youtube.com/embed/D6IGyc0Kf-o?si=d6dNd_biqZcUKNfR&amp;controls=0"
             title="Explore Colleges with Us!"
             description="Subscribe to our channel for tips, college comparisons, and real student experiences."
           />
-        </div>
+        </div> */}
         <p className="text-lg mb-4 text-gray-700">
           By analyzing past years' cutoffs across multiple engineering colleges, courses, and categories, we match your CET score with colleges where you have the best shot. We support personalized filtering based on category (OBC, SC, ST, OPEN), gender, branch preferences (like Computer, Mechanical, Civil), and desired college locations. Our database is continually updated to reflect the latest changes in cutoff trends, making your predictions more accurate and timely.
         </p>

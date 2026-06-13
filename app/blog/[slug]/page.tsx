@@ -87,13 +87,36 @@ export default async function BlogPostPage({
           {format(new Date(post.frontMatter.date), "MMMM dd, yyyy")}
         </p>
 
-       
+        {/* Back Button */}
+
+        <div className="">
+           <div className="back-button">
+             <a href="/blog" className="text-blue-500 hover:text-blue-700">
+               ← Back to Blog
+             </a>
+           </div>
+        </div>
+
 
         {/* MDX Content */}
-        <article className="prose dark:prose-invert">{post.content}</article>
+        <article className="prose dark:prose-invert">
+          {post.content}
+          <div className="cta-banner mt-12 p-8 bg-blue-900 text-white rounded-lg text-center shadow-lg border border-blue-800 color-black">
+  <h3 className="text-2xl font-bold mb-3">Not sure where you stand?</h3>
+        <p className="text-lg mb-6">Want to know exactly which college you can get with your specific score?</p>
+        <a
+          href="https://guessmycollege.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block bg-yellow-400 text-blue-900 font-bold py-3 px-8 rounded-full hover:bg-yellow-300 transition duration-300"
+        >
+          Try our free AI-powered Guess My College predictor tool 🚀
+        </a>
+      </div>
+    </article >
 
       
-      </section>
+      </section >
     </>
   );
 }

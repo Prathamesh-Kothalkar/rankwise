@@ -11,13 +11,13 @@ function ModelUpdateModal() {
   useEffect(() => {
     const hasSeenModal = localStorage.getItem(STORAGE_KEY);
 
-    if (!hasSeenModal) {
+    if (true) {
       setIsOpen(true);
     }
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem(STORAGE_KEY, "true");
+    //localStorage.setItem(STORAGE_KEY, "true");
     setIsOpen(false);
   };
 

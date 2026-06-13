@@ -10,6 +10,6 @@ console.log('[GenAI] Using Gemini API Key');
 
 const genAI = new GoogleGenerativeAI(geminiApiKey);
 
-export const getGeminiModel = (modelName: string = 'gemini-1.5-flash') => {
+export const getGeminiModel = (modelName: string = 'gemini-2.5-flash') => {
     return genAI.getGenerativeModel({ model: modelName });
 };
