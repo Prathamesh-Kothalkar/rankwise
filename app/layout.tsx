@@ -4,6 +4,7 @@ import AuthProvider from '@/context/AuthProvider'
 import { Analytics } from "@vercel/analytics/next"
 import Footer from '@/components/Footer'
 import ContactButton from '@/components/ContactButton'
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: 'Guess My College | MHT-CET College Predictor & Cutoff Tool',
@@ -54,8 +55,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2991036805731287" crossorigin="anonymous"></script>
-        <script defer data-domain="guessmycollege.in" src="https://plausible.io/js/script.js"></script>
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2991036805731287" crossorigin="anonymous"></script> */}
+        {/* <script defer data-domain="guessmycollege.in" src="https://plausible.io/js/script.js"></script> */}
+        
         {/* <script type='text/javascript' src='//pl27070925.profitableratecpm.com/62/08/d9/6208d9d2b2ead70c886b98171c7d98b1.js'></script> */}
         {/* <script type='text/javascript' src='//pl27070923.profitableratecpm.com/e2/38/a4/e238a4c4ba34dfeb572a088579232d26.js'></script> */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{
@@ -91,9 +93,10 @@ export default function RootLayout({
       </head>
       <Analytics />
       <AuthProvider>
+        <GoogleAnalytics gaId="G-WS17XLW0QJ" />
         <body>{children}</body>
         <footer className='mb-10'><Footer /></footer>
-        <ContactButton/>
+        <ContactButton />
       </AuthProvider>
     </html>
   )
